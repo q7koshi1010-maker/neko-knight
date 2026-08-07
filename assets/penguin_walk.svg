@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#22232b" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== BACK FLIPPER (behind body, left) ===== -->
+    <path d="M36,50 C28,58 27,74 32,86 C34,90 40,90 41,85 C43,72 43,58 40,52 C39,49 37,48 36,50 Z" fill="#33333d"/>
+
+    <!-- ===== FEET (walk stride: back foot pulled back+up, front foot forward) ===== -->
+    <path d="M45,108 L36,117 L40,117 L41,119 L44,117 L47,119 L49,117 L51,119 L51,117 L49,108 Z" fill="#ffd23f"/>
+    <path d="M70,107 L64,120 L68,120 L69,122 L72,120 L75,122 L78,120 L80,122 L80,120 L74,107 Z" fill="#ffd23f"/>
+
+    <!-- ===== BODY (black egg) ===== -->
+    <path d="M58,34 C42,34 33,50 33,72 C33,94 40,116 58,116 C76,116 83,94 83,72 C83,50 74,34 58,34 Z" fill="#383843"/>
+    <!-- lower body soft shade -->
+    <path d="M37,92 C43,108 73,108 79,92 C79,104 72,116 58,116 C44,116 37,104 37,92 Z" fill="#2b2b34" stroke="none"/>
+
+    <!-- ===== WHITE BELLY ===== -->
+    <ellipse cx="61" cy="84" rx="16" ry="22" fill="#fdfdfb"/>
+    <path d="M45,86 C50,100 72,100 77,86 C77,96 71,104 61,104 C51,104 45,96 45,86 Z" fill="#e7e4dc" stroke="none"/>
+
+    <!-- ===== WHITE FACE (hood) ===== -->
+    <ellipse cx="60" cy="54" rx="17" ry="16" fill="#fdfdfb"/>
+
+    <!-- ===== FACE FEATURES ===== -->
+    <ellipse cx="50" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="70" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <circle cx="54" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="67" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="52.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+    <circle cx="65.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+
+    <!-- ===== BEAK (yellow triangle, pointing right) ===== -->
+    <path d="M72,53 L88,59 L72,65 Z" fill="#ffd23f"/>
+    <path d="M72,59 L86,59" fill="none" stroke="#e8a200" stroke-width="1.4"/>
+
+    <!-- ===== FRONT FLIPPER (right, holding gun lowered) ===== -->
+    <path d="M79,64 C88,70 89,84 83,94 C81,98 75,98 74,93 C72,82 72,70 74,64 C75,61 78,62 79,64 Z" fill="#33333d"/>
+
+    <!-- ===== PISTOL (held lowered, muzzle right) ===== -->
+    <g transform="translate(72,86) rotate(8)">
+      <rect x="0" y="-4" width="30" height="7" rx="2" fill="#2b2b33"/>
+      <rect x="3" y="2" width="17" height="4.5" rx="1.5" fill="#7a1f1f"/>
+      <path d="M5,4 L12,4 L10,20 L2,18 Z" fill="#7a1f1f"/>
+      <path d="M8,6 Q10,13 15,10" fill="none" stroke="#22232b" stroke-width="2"/>
+      <circle cx="29" cy="-0.5" r="1.2" fill="#111116" stroke="none"/>
+    </g>
+    <circle cx="79" cy="92" r="5" fill="#33333d"/>
+
+  </g>
+</svg>

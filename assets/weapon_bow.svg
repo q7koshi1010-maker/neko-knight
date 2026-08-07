@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 弓矢：茶色い弓＋弦＋右向きの矢（手描きに忠実） -->
+  <g stroke="#4a3728" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 弓（左にふくらむ弧） -->
+    <path d="M80,16 Q34,64 80,112" fill="none" stroke="#b58a5c" stroke-width="9"/>
+    <!-- 弦 -->
+    <path d="M80,16 L80,112" fill="none" stroke="#d8d8d8" stroke-width="2.4"/>
+    <!-- 矢（つがえて右向き） -->
+    <rect x="50" y="61" width="54" height="5" rx="2" fill="#8a6a3a"/>
+    <path d="M100,54 L120,64 L100,74 L106,64 Z" fill="#b8bcc4"/>
+    <path d="M48,56 L62,63 L55,64 L62,65 L48,72 L53,64 Z" fill="#e6e9ef"/>
+  </g>
+</svg>

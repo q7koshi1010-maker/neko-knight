@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== SHIELD (lower-left, set apart, rounded, gray cross) ===== -->
+    <g>
+      <path d="M6,74 L30,74 L30,95 C30,106 18,113 18,113 C18,113 6,106 6,95 Z" fill="#c9ccd4"/>
+      <path d="M9,77 L27,77 L27,94 C27,102 18,108 18,108" fill="none" stroke="#eef1f6" stroke-width="1.4"/>
+      <rect x="15.5" y="80" width="5" height="23" rx="1.2" fill="#9aa0ab" stroke-width="2.4"/>
+      <rect x="9" y="87" width="18" height="5" rx="1.2" fill="#9aa0ab" stroke-width="2.4"/>
+    </g>
+
+    <!-- ===== BODY (same fluffy body) ===== -->
+    <path d="M46,64
+             C40,73 38,88 41,102
+             C42,108 45,116 48,120
+             C49,122 51,122 52,120
+             C54,116 56,113 59,113
+             C62,113 64,116 66,120
+             C67,122 69,122 70,120
+             C73,116 76,108 77,102
+             C80,88 78,73 72,64 Z" fill="#fdfdfb"/>
+    <!-- soft belly shadow -->
+    <path d="M44,101 C51,110 67,110 74,101 C73,109 66,113 59,113 C52,113 45,109 44,101 Z" fill="#e7e4dc" stroke="none"/>
+
+    <!-- ===== RIGHT ARM extended forward/up toward swung sword (under paw) ===== -->
+    <path d="M71,78 Q84,72 95,68" fill="none" stroke="#4a3728" stroke-width="10"/>
+    <path d="M71,78 Q84,72 95,68" fill="none" stroke="#fdfdfb" stroke-width="6"/>
+
+    <!-- ===== HEAD + EARS (big independent round head, notch between ears) ===== -->
+    <path d="M34,30
+             L36,8
+             L53,24
+             Q57,21 61,24
+             L78,8
+             L80,30
+             C89,40 89,58 77,67
+             C70,72 64,73 57,73
+             C50,73 44,72 37,67
+             C25,58 25,40 34,30 Z" fill="#fdfdfb"/>
+    <!-- inner ears -->
+    <path d="M40,14 L37,27 L50,24 Z" fill="#ffc2cf" stroke="none"/>
+    <path d="M74,14 L64,24 L77,27 Z" fill="#ffc2cf" stroke="none"/>
+
+    <!-- ===== FACE ===== -->
+    <ellipse cx="45" cy="51" rx="5" ry="3.2" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="69" cy="51" rx="5" ry="3.2" fill="#ffc2cf" stroke="none"/>
+    <path d="M43,37 Q49,31 55,37" fill="none" stroke-width="2.7"/>
+    <path d="M59,37 Q65,31 71,37" fill="none" stroke-width="2.7"/>
+    <circle cx="49" cy="45" r="3.1" fill="#3a2d24" stroke="none"/>
+    <circle cx="65" cy="45" r="3.1" fill="#3a2d24" stroke="none"/>
+    <circle cx="47.9" cy="43.9" r="1" fill="#ffffff" stroke="none"/>
+    <circle cx="63.9" cy="43.9" r="1" fill="#ffffff" stroke="none"/>
+    <path d="M54,50 L60,50 L57,54 Z" fill="#ff8fa3" stroke-width="2"/>
+    <path d="M57,54 Q53,58.5 49.5,55.5" fill="none" stroke-width="2.2"/>
+    <path d="M57,54 Q61,58.5 64.5,55.5" fill="none" stroke-width="2.2"/>
+    <g stroke-width="1.7">
+      <path d="M39,47 L20,43" fill="none"/>
+      <path d="M39,52 L18,52" fill="none"/>
+      <path d="M39,57 L20,61" fill="none"/>
+      <path d="M75,47 L94,43" fill="none"/>
+      <path d="M75,52 L96,52" fill="none"/>
+      <path d="M75,57 L94,61" fill="none"/>
+    </g>
+
+    <!-- ===== SWORD (swung out to the right-front; same sword, rotated about grip) ===== -->
+    <g transform="rotate(42 95 68)">
+      <path d="M91,66 L99,66 L99,32 L95,22 L91,32 Z" fill="#c9ccd4"/>
+      <path d="M95,30 L95,64" fill="none" stroke="#eef1f6" stroke-width="1.5"/>
+      <rect x="83" y="65" width="24" height="5" rx="2" fill="#9aa0ab"/>
+      <rect x="92" y="70" width="6" height="12" rx="2" fill="#9aa0ab"/>
+      <circle cx="95" cy="83" r="3" fill="#9aa0ab"/>
+    </g>
+    <!-- right paw gripping sword -->
+    <circle cx="95" cy="68" r="5.2" fill="#fdfdfb"/>
+
+  </g>
+</svg>

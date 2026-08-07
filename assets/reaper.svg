@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- black hooded robe, round hood, wavy hem (bottom y~124) -->
+    <path d="M64 12 Q93 14 97 46 Q99 63 92 80
+             L98 98 L87 93 L83 110 L73 101 L66 122 L58 101 L47 110 L43 93 L32 98 L38 80
+             Q31 63 33 46 Q37 14 64 12 Z" fill="#1f2028"/>
+    <!-- hood inner shadow framing the face -->
+    <path d="M64 24 Q83 26 85 47 Q85 66 64 68 Q43 66 43 47 Q45 26 64 24 Z" fill="#2b2c36" stroke-width="2.6"/>
+    <!-- pencil shade on lower robe -->
+    <path d="M72 70 Q88 76 92 92 L87 93 L83 110 L73 101 L69 108 Z" fill="#15161c" stroke="none"/>
+  </g>
+
+  <!-- white skull -->
+  <g stroke="#4a3728" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M64 28 Q81 28 82 46 Q82 55 77 59 L77 63 Q71 67 64 67 Q57 67 51 63 L51 59 Q46 55 46 46 Q47 28 64 28 Z" fill="#f2f0e6"/>
+  </g>
+  <!-- big round eye sockets -->
+  <ellipse cx="57" cy="45" rx="5.2" ry="6.6" fill="#1f2028" stroke="none"/>
+  <ellipse cx="72" cy="44" rx="5.2" ry="6.6" fill="#1f2028" stroke="none"/>
+  <!-- heart / inverted-triangle nose -->
+  <path d="M64.5 49 Q61 51 62 55 Q63 57.5 64.5 57.5 Q66 57.5 67 55 Q68 51 64.5 49 Z" fill="#1f2028" stroke="none"/>
+  <!-- teeth row -->
+  <path d="M54 60 L74.5 60" fill="none" stroke="#4a3728" stroke-width="1.6"/>
+  <path d="M58 60 L58 65 M62 60.5 L62 66 M66 60.5 L66 66 M70 60 L70 65" fill="none" stroke="#4a3728" stroke-width="1.5"/>
+
+  <!-- scythe: gold handle lower-left -> upper-right -->
+  <line x1="38" y1="112" x2="107" y2="40" stroke="#4a3728" stroke-width="8" stroke-linecap="round"/>
+  <line x1="38" y1="112" x2="107" y2="40" stroke="#c9a24a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M40 108 Q64 100 100 46" fill="none" stroke="#e8c877" stroke-width="1.4"/>
+  <!-- silver blade at upper-right end -->
+  <g stroke="#4a3728" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M107 40 Q122 39 119 23 Q109 27 100 32 Q104 37 107 40 Z" fill="#c9ccd4"/>
+    <path d="M107 40 Q117 34 115 25" fill="none" stroke="#eef1f6" stroke-width="1.6"/>
+  </g>
+  <!-- two white grip orbs on the handle -->
+  <circle cx="59" cy="90" r="6.2" fill="#f2f0e6" stroke="#4a3728" stroke-width="2.6"/>
+  <circle cx="82" cy="66" r="6.2" fill="#f2f0e6" stroke="#4a3728" stroke-width="2.6"/>
+</svg>

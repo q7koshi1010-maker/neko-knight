@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== EARS (round black, on top of head) ===== -->
+    <circle cx="39" cy="21" r="9.5" fill="#2b2b2b"/>
+    <circle cx="75" cy="21" r="9.5" fill="#2b2b2b"/>
+
+    <!-- ===== BODY (planted stance for throwing, feet y~122) ===== -->
+    <path d="M42,64
+             C34,74 33,92 37,104
+             C39,111 42,118 45,121
+             C46,123 49,123 50,121
+             C52,117 54,114 57,114
+             C60,114 62,117 64,121
+             C65,123 68,123 69,121
+             C73,118 76,111 78,104
+             C82,92 80,74 72,64 Z" fill="#fdfdfb"/>
+    <!-- soft belly shadow -->
+    <path d="M40,102 C48,111 66,111 74,102 C73,110 66,114 57,114 C48,114 41,110 40,102 Z" fill="#e7e4dc" stroke="none"/>
+
+    <!-- ===== LEFT ARM (drawn back for balance) ===== -->
+    <path d="M42,78 Q33,82 27,80" fill="none" stroke="#4a3728" stroke-width="10"/>
+    <path d="M42,78 Q33,82 27,80" fill="none" stroke="#fdfdfb" stroke-width="6"/>
+
+    <!-- ===== RIGHT ARM (extended forward-up, throwing) ===== -->
+    <path d="M71,74 Q85,64 96,55" fill="none" stroke="#4a3728" stroke-width="10"/>
+    <path d="M71,74 Q85,64 96,55" fill="none" stroke="#fdfdfb" stroke-width="6"/>
+
+    <!-- ===== HEAD (big round white head) ===== -->
+    <circle cx="57" cy="43" r="25" fill="#fdfdfb"/>
+
+    <!-- ===== FACE ===== -->
+    <!-- eye patches (black, slightly vertical) -->
+    <ellipse cx="48" cy="44" rx="6" ry="8" fill="#2b2b2b" stroke-width="2.4"/>
+    <ellipse cx="66" cy="44" rx="6" ry="8" fill="#2b2b2b" stroke-width="2.4"/>
+    <!-- eyes (white then black pupil + highlight) -->
+    <circle cx="48" cy="45" r="3.1" fill="#ffffff" stroke="none"/>
+    <circle cx="66" cy="45" r="3.1" fill="#ffffff" stroke="none"/>
+    <circle cx="48.7" cy="45.4" r="1.9" fill="#2b2b2b" stroke="none"/>
+    <circle cx="66.7" cy="45.4" r="1.9" fill="#2b2b2b" stroke="none"/>
+    <circle cx="48" cy="44.5" r="0.8" fill="#ffffff" stroke="none"/>
+    <circle cx="66" cy="44.5" r="0.8" fill="#ffffff" stroke="none"/>
+    <!-- cheeks (blush) -->
+    <ellipse cx="42" cy="54" rx="4" ry="2.6" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="72" cy="54" rx="4" ry="2.6" fill="#ffc2cf" stroke="none"/>
+    <!-- nose -->
+    <ellipse cx="57" cy="53" rx="3" ry="2.2" fill="#2b2b2b" stroke-width="1.6"/>
+    <!-- open determined smile -->
+    <path d="M52,55 Q57,60 62,55" fill="none" stroke-width="2.2"/>
+
+    <!-- ===== BOMB (held high in right hand, ready to throw) ===== -->
+    <circle cx="102" cy="49" r="9.5" fill="#2b2b33"/>
+    <ellipse cx="98.5" cy="45.5" rx="2.6" ry="1.6" fill="#4c4c58" stroke="none" transform="rotate(-35 98.5 45.5)"/>
+    <!-- fuse cap -->
+    <rect x="98" y="35" width="8" height="6" rx="1.5" fill="#8a6a3a"/>
+    <!-- fuse -->
+    <path d="M102,36 Q107,29 112,28" fill="none" stroke="#4a3728" stroke-width="2.4"/>
+    <!-- spark (red star) -->
+    <g stroke="none">
+      <path d="M114,22 L116,27 L121,27.5 L117,31 L118.5,36 L114,33 L109.5,36 L111,31 L107,27.5 L112,27 Z" fill="#ff3b3b"/>
+      <path d="M114,25 L115,28 L118,28.3 L115.7,30.3 L116.5,33.3 L114,31.6 L111.5,33.3 L112.3,30.3 L110,28.3 L113,28 Z" fill="#ffd23f"/>
+    </g>
+    <!-- right paw gripping bomb -->
+    <circle cx="96" cy="55" r="5" fill="#fdfdfb"/>
+
+  </g>
+</svg>

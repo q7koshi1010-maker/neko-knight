@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 24">
+  <g stroke="#b5720a" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- orange motion tail (behind, to the left) -->
+    <path d="M20 8 L3 11 Q0 12 3 13 L20 16 Q15 12 20 8 Z" fill="#ff8a1e"/>
+    <!-- extra streaks -->
+    <path d="M9 8 L14 9" fill="none" stroke="#ff8a1e" stroke-width="1.6"/>
+    <path d="M9 16 L14 15" fill="none" stroke="#ff8a1e" stroke-width="1.6"/>
+    <!-- gold bullet body, pointed right -->
+    <path d="M18 7 L33 7 Q40 7 46 12 Q40 17 33 17 L18 17 Q15 12 18 7 Z" fill="#ffcf3f"/>
+    <!-- highlight -->
+    <path d="M22 10 L32 10" fill="none" stroke="#fff2b8" stroke-width="1.8"/>
+  </g>
+</svg>

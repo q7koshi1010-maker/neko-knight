@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#5b4636" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== SMALL SWORD (kept modest, far-left, pointing up) ===== -->
+    <g>
+      <path d="M16,70 L23,70 L23,44 L19.5,35 L16,44 Z" fill="#c9ccd4"/>
+      <path d="M19.5,42 L19.5,68" fill="none" stroke="#eef1f6" stroke-width="1.3"/>
+      <rect x="10" y="69" width="19" height="4.5" rx="2" fill="#9aa0ab"/>
+      <rect x="17" y="73" width="5" height="10" rx="2" fill="#9aa0ab"/>
+    </g>
+
+    <!-- ===== BODY (fluffy puppy body, 2 legs, feet at y~122) ===== -->
+    <path d="M46,60
+             C40,69 38,88 41,102
+             C42,108 45,116 48,120
+             C49,122 51,122 52,120
+             C54,116 56,113 59,113
+             C62,113 64,116 66,120
+             C67,122 69,122 70,120
+             C73,116 76,108 77,102
+             C80,88 78,69 72,60 Z" fill="#fdfbf5"/>
+    <path d="M44,99 C51,108 67,108 74,99 C73,107 66,111 59,111 C52,111 45,107 44,99 Z" fill="#eae4d6" stroke="none"/>
+
+    <!-- ===== LEFT ARM to small sword ===== -->
+    <path d="M46,80 Q34,77 24,74" fill="none" stroke="#5b4636" stroke-width="9"/>
+    <path d="M46,80 Q34,77 24,74" fill="none" stroke="#fdfbf5" stroke-width="5"/>
+    <circle cx="22" cy="72" r="4.6" fill="#fdfbf5"/>
+
+    <!-- ===== HEAD ===== -->
+    <ellipse cx="56" cy="44" rx="22" ry="21" fill="#fdfbf5"/>
+    <path d="M45,27 C33,19 19,25 18,40 C17,52 24,62 35,61 C42,60 45,53 46,46 Z" fill="#fdfbf5"/>
+    <path d="M67,27 C79,19 93,25 94,40 C95,52 88,62 77,61 C70,60 67,53 66,46 Z" fill="#fdfbf5"/>
+    <path d="M23,45 C26,56 33,60 41,56 C35,60 27,57 23,45 Z" fill="#eae4d6" stroke="none"/>
+    <path d="M89,45 C86,56 79,60 71,56 C77,60 85,57 89,45 Z" fill="#eae4d6" stroke="none"/>
+
+    <!-- ===== FACE ===== -->
+    <ellipse cx="45" cy="50" rx="4.6" ry="3" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="67" cy="50" rx="4.6" ry="3" fill="#ffc2cf" stroke="none"/>
+    <circle cx="48" cy="42" r="3.2" fill="#3a2d24" stroke="none"/>
+    <circle cx="64" cy="42" r="3.2" fill="#3a2d24" stroke="none"/>
+    <circle cx="46.9" cy="40.9" r="1" fill="#ffffff" stroke="none"/>
+    <circle cx="62.9" cy="40.9" r="1" fill="#ffffff" stroke="none"/>
+    <path d="M53,49 Q56,46.5 59,49 Q59,52.5 56,53.2 Q53,52.5 53,49 Z" fill="#f28fa0" stroke-width="2"/>
+    <path d="M56,53.2 L56,56" fill="none" stroke-width="2"/>
+    <path d="M56,56 Q52,59.5 49,56.5" fill="none" stroke-width="2.2"/>
+    <path d="M56,56 Q60,59.5 63,56.5" fill="none" stroke-width="2.2"/>
+
+    <!-- ===== BIG SHIELD raised in front (right), cross mark ===== -->
+    <g>
+      <path d="M70,46 L106,46 L106,76 C106,92 88,102 88,102 C88,102 70,92 70,76 Z" fill="#c9ccd4"/>
+      <path d="M74,50 L102,50 L102,75 C102,88 88,97 88,97" fill="none" stroke="#eef1f6" stroke-width="1.6"/>
+      <rect x="85" y="54" width="6" height="38" rx="1.6" fill="#9aa0ab" stroke-width="2.6"/>
+      <rect x="75" y="66" width="26" height="6" rx="1.6" fill="#9aa0ab" stroke-width="2.6"/>
+    </g>
+
+  </g>
+</svg>

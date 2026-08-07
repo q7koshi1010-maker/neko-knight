@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 地面タイル：上に草・下は土＋小石。左右端シームレス・上辺が地面表面 -->
+  <!-- 土のベース（左右端いっぱい） -->
+  <rect x="0" y="10" width="128" height="118" fill="#c69a5e"/>
+  <!-- 土の陰影 -->
+  <rect x="0" y="70" width="128" height="58" fill="#b98a4e" opacity="0.5"/>
+  <!-- 小石（左右端をまたがない配置） -->
+  <ellipse cx="24" cy="58" rx="7" ry="5" fill="#a9814a"/>
+  <ellipse cx="24" cy="57" rx="4" ry="2.5" fill="#c69a5e"/>
+  <ellipse cx="92" cy="88" rx="8" ry="5.5" fill="#a9814a"/>
+  <ellipse cx="92" cy="87" rx="4.5" ry="2.5" fill="#c69a5e"/>
+  <ellipse cx="58" cy="104" rx="6" ry="4" fill="#a9814a"/>
+  <circle cx="104" cy="52" r="3" fill="#a9814a"/>
+  <circle cx="40" cy="96" r="2.6" fill="#a9814a"/>
+  <!-- 草の帯（上辺表面・波打つ下端／左右端 y=16で一致） -->
+  <path d="M0,0 L128,0 L128,16
+           C118,26 110,10 100,20 C90,30 82,12 72,22
+           C62,32 54,12 44,22 C34,32 26,12 16,20 C10,25 4,20 0,16 Z"
+        fill="#8fd06a"/>
+  <!-- 草の濃い縁 -->
+  <path d="M0,16 C4,20 10,25 16,20 C26,12 34,32 44,22 C54,12 62,32 72,22 C82,12 90,30 100,20 C110,10 118,26 128,16"
+        fill="none" stroke="#5fa83f" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- 草の刃（数本） -->
+  <path d="M30,18 L28,8 M31,18 L34,9 M64,20 L62,9 M66,20 L69,10 M98,18 L96,8 M100,18 L103,9"
+        fill="none" stroke="#7cc056" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

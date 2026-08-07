@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#2a2a2a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- bat body (silver, tapered), lower-left to upper-right -->
+    <path d="M26.4 100.6
+             L94.6 17.1
+             A13 13 0 0 1 113.4 34.9
+             L33.6 107.4
+             A5 5 0 0 1 26.4 100.6 Z" fill="#b8bcc4"/>
+    <!-- barrel highlight streak -->
+    <path d="M62 66 L100 24" fill="none" stroke="#e6e9ef" stroke-width="4"/>
+    <!-- black grip -->
+    <path d="M26.4 100.6
+             L49.05 75.3
+             L57.8 83.5
+             L33.6 107.4
+             A5 5 0 0 1 26.4 100.6 Z" fill="#1c1c1c"/>
+    <!-- grip tape lines -->
+    <path d="M33 98 L41 89" fill="none" stroke="#3a3a3a" stroke-width="2"/>
+    <path d="M38 103 L47 93" fill="none" stroke="#3a3a3a" stroke-width="2"/>
+    <!-- knob at grip end -->
+    <circle cx="30" cy="104" r="6" fill="#1c1c1c"/>
+  </g>
+</svg>

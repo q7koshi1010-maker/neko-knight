@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <!-- 空の装飾用ふわふわ白い雲（敵ではない） -->
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 雲本体 -->
+    <path d="M40,74
+             C22,74 14,60 24,50
+             C18,36 36,26 48,34
+             C54,20 78,20 84,34
+             C96,24 118,30 118,44
+             C134,40 148,50 144,62
+             C154,66 154,78 140,80
+             C120,84 60,84 40,80 Z" fill="#ffffff"/>
+    <!-- 下側の薄い影 -->
+    <path d="M42,79 C70,83 118,83 138,79" fill="none" stroke="#c9cdd6" stroke-width="4" stroke-opacity="0.9"/>
+    <path d="M28,58 C26,52 30,46 36,45" fill="none" stroke="#e6e8ee" stroke-width="2.4"/>
+  </g>
+</svg>

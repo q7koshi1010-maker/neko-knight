@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 256">
+  <!-- 遠景のなだらかな緑の丘・横シームレス（左右端 y=150 で一致） -->
+  <defs>
+    <linearGradient id="hillg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe3a3"/>
+      <stop offset="1" stop-color="#9fd07f"/>
+    </linearGradient>
+  </defs>
+  <!-- 奥の丘（淡い） -->
+  <path d="M0,150 C64,120 128,120 192,146 C256,172 320,172 384,146 C448,120 480,124 512,150 L512,256 L0,256 Z" fill="#bfe3a3"/>
+  <!-- 手前の丘（少し濃い・端 y=182で一致） -->
+  <path d="M0,182 C80,150 150,150 220,180 C300,214 360,214 430,182 C470,164 496,168 512,182 L512,256 L0,256 Z" fill="url(#hillg)"/>
+  <!-- 丘のハイライトライン -->
+  <path d="M0,182 C80,150 150,150 220,180 C300,214 360,214 430,182 C470,164 496,168 512,182" fill="none" stroke="#d4eec0" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>ネコの騎士のぼうけん</title>
+<!-- PWA / iPad（ホーム画面に追加してアプリのように遊ぶ） -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#a9e0f5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ネコの騎士">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root { --ui:#4a3728; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent;
+    -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  html,body { margin:0; height:100%; background:#2b2b33; overflow:hidden;
+    position:fixed; width:100%; overscroll-behavior:none;
+    font-family:-apple-system,"Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif; }
+  /* タップ遅延・ダブルタップ拡大を無効化（操作ボタン系） */
+  .btn,.sbtn,.sclose,#startBtn,.ov2,#muteBtn,#pauseBtn { touch-action:manipulation; }
+  #wrap { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  #game { position:relative; width:100%; height:100%; }
+  canvas { display:block; width:100%; height:100%; image-rendering:auto; touch-action:none; }
+
+  /* タッチ操作UI */
+  #touch { position:absolute; inset:0; pointer-events:none; display:none; }
+  .pad { position:absolute; bottom:calc(18px + env(safe-area-inset-bottom)); pointer-events:auto; user-select:none;
+    display:flex; gap:14px; }
+  #padLeft { left:calc(18px + env(safe-area-inset-left)); }
+  #padRight { right:calc(18px + env(safe-area-inset-right)); }
+  .btn { width:74px; height:74px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:30px; font-weight:800; color:#fff;
+    background:rgba(74,55,40,.42); border:3px solid rgba(255,255,255,.55);
+    backdrop-filter:blur(2px); }
+  .btn:active { transform:scale(.92); background:rgba(74,55,40,.62); }
+  #bJump { background:rgba(60,140,80,.5); }
+  #bAtk  { background:rgba(190,70,70,.5); }
+  #bGuard{ background:rgba(70,110,190,.5); }
+
+  /* オーバーレイ（タイトル/クリア/GameOver） */
+  #overlay { position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; color:#fff;
+    background:rgba(30,32,40,.55); backdrop-filter:blur(3px); z-index:5; padding:20px; }
+  #overlay.hidden { display:none; }
+  #overlay h1 { font-size:clamp(28px,6vw,52px); margin:0 0 6px;
+    text-shadow:0 3px 0 #4a3728, 0 6px 14px rgba(0,0,0,.4); letter-spacing:1px; }
+  #overlay p { font-size:clamp(14px,3vw,20px); margin:6px 0; line-height:1.7; opacity:.95; }
+  #overlay .big { font-size:clamp(20px,4vw,30px); font-weight:800; }
+  #startBtn { margin-top:18px; padding:14px 34px; font-size:22px; font-weight:800;
+    color:#4a3728; background:#ffd23f; border:none; border-radius:40px; cursor:pointer;
+    box-shadow:0 5px 0 #c99a10, 0 8px 18px rgba(0,0,0,.3); }
+  #startBtn:active { transform:translateY(3px); box-shadow:0 2px 0 #c99a10; }
+  .ov2 { display:block; margin:12px auto 0; padding:11px 26px; font-size:18px; font-weight:800;
+    color:#fff; background:#6a8fbf; border:none; border-radius:34px; cursor:pointer;
+    box-shadow:0 4px 0 #4a6c96; }
+  .ov2:active { transform:translateY(2px); box-shadow:0 2px 0 #4a6c96; }
+  .keys { font-size:13px; opacity:.8; margin-top:14px; }
+  #loading { position:absolute; inset:0; display:flex; align-items:center;
+    justify-content:center; color:#fff; font-size:18px; z-index:9; }
+  #muteBtn { position:absolute; top:calc(12px + env(safe-area-inset-top)); right:calc(12px + env(safe-area-inset-right)); z-index:6; width:44px; height:44px;
+    border-radius:50%; border:3px solid rgba(255,255,255,.6); background:rgba(74,55,40,.42);
+    font-size:20px; cursor:pointer; line-height:1; color:#fff; }
+  #muteBtn:active { transform:scale(.92); }
+  #pauseBtn { position:absolute; top:calc(12px + env(safe-area-inset-top)); right:calc(66px + env(safe-area-inset-right));
+    z-index:6; width:44px; height:44px; border-radius:50%; border:3px solid rgba(255,255,255,.6);
+    background:rgba(74,55,40,.42); font-size:20px; cursor:pointer; line-height:1; color:#fff;
+    display:none; align-items:center; justify-content:center; }
+  #pauseBtn:active { transform:scale(.92); }
+
+  /* かじ屋ショップ */
+  #shop { position:absolute; inset:0; z-index:7; display:flex; align-items:center;
+    justify-content:center; background:rgba(30,32,40,.55); backdrop-filter:blur(3px); padding:16px; }
+  #shop.hidden { display:none; }
+  #shop .sbox { background:#fff8ec; border:4px solid #4a3728; border-radius:18px;
+    padding:18px 20px; width:min(440px,92vw); max-height:88vh; overflow:auto;
+    -webkit-overflow-scrolling:touch; touch-action:pan-y;
+    box-shadow:0 10px 30px rgba(0,0,0,.4); }
+  #shop h2 { margin:0 0 4px; color:#4a3728; font-size:26px; text-align:center; }
+  #shop .sstars { text-align:center; color:#a86e12; font-size:18px; margin-bottom:12px; }
+  #shop .sstars b { color:#e8a200; font-size:22px; }
+  #shop .srow { display:flex; align-items:center; gap:14px; padding:10px;
+    border:2px solid #e5d8c2; border-radius:12px; margin-bottom:10px; background:#fffdf8; }
+  #shop .sicon { width:64px; height:64px; flex:0 0 64px; background:#eef3f7;
+    border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  #shop .sicon img { width:58px; height:58px; }
+  #shop .sinfo { flex:1; display:flex; flex-direction:column; gap:8px; }
+  #shop .shead { font-weight:800; color:#a86e12; font-size:15px; margin:12px 2px 6px;
+    border-bottom:2px solid #ecdcbf; padding-bottom:3px; }
+  #shop .sname { font-weight:800; color:#4a3728; font-size:18px; }
+  #shop .sdesc { font-weight:600; color:#8a7a63; font-size:12px; }
+  #shop .sbtn { align-self:flex-start; border:none; border-radius:20px; padding:9px 18px;
+    font-size:16px; font-weight:800; cursor:pointer; color:#4a3728; }
+  #shop .sbtn.buy { background:#ffd23f; box-shadow:0 3px 0 #c99a10; }
+  #shop .sbtn.use { background:#9fd07f; box-shadow:0 3px 0 #6fa050; }
+  #shop .sbtn:active { transform:translateY(2px); box-shadow:none; }
+  #shop .tag { align-self:flex-start; font-size:14px; font-weight:700; padding:6px 12px; border-radius:16px; }
+  #shop .tag.using { background:#cdeccb; color:#3a7a2f; }
+  #shop .tag.lock { background:#eee; color:#999; }
+  #shop .sclose { display:block; margin:8px auto 0; border:none; background:#4a3728;
+    color:#fff; font-weight:800; font-size:16px; padding:10px 26px; border-radius:22px; cursor:pointer; }
+
+  /* たてむき（ポートレート）のときの「よこにしてね」案内。ホーム画面アプリは横固定なので通常は出ない。 */
+  #rotate { position:absolute; inset:0; z-index:20; display:none;
+    flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    background:#2b2b33; color:#fff; padding:24px; gap:14px; }
+  #rotate .rico { font-size:64px; animation:rtwist 1.6s ease-in-out infinite; }
+  #rotate .rtxt { font-size:clamp(18px,5vw,26px); font-weight:800; line-height:1.6; }
+  @keyframes rtwist { 0%,100%{ transform:rotate(-12deg); } 50%{ transform:rotate(78deg); } }
+  @media (orientation:portrait){ #rotate { display:flex; } }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="game">
+  <canvas id="cv"></canvas>
+  <div id="touch">
+    <div class="pad" id="padLeft"><div class="btn" data-k="left">◀</div><div class="btn" data-k="right">▶</div></div>
+    <div class="pad" id="padRight"><div class="btn" id="bGuard" data-k="guard">🛡</div><div class="btn" id="bAtk" data-k="atk">⚔</div><div class="btn" id="bJump" data-k="jump">⤴</div></div>
+  </div>
+  <div id="overlay">
+    <h1>ネコの騎士のぼうけん</h1>
+    <p>星をあつめ、モンスターをかわして<br>死神（しにがみ）ボスをたおそう！</p>
+    <button id="startBtn">▶ スタート</button>
+    <div class="keys">← → 移動 ／ Space・↑ ジャンプ ／ J 攻撃 ／ K・↓ ガード ／ P ポーズ ／ R リスタート</div>
+  </div>
+  <div id="loading">よみこみ中…</div>
+  <button id="muteBtn" title="音のON/OFF (M)">🔊</button>
+  <button id="pauseBtn" title="ポーズ (P)">⏸</button>
+  <div id="shop" class="hidden"></div>
+  <div id="rotate"><div class="rico">📱</div><div class="rtxt">iPadを よこむきに してね</div></div>
+</div></div>
+<script>
+  // iOS Safari：ピンチ拡大を無効化（タップ操作はそのまま）
+  ['gesturestart','gesturechange','gestureend'].forEach(t =>
+    document.addEventListener(t, e => e.preventDefault(), { passive:false }));
+  // オフライン用サービスワーカー登録（https か localhost でのみ有効。それ以外は静かに無視）
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+</script>
+<script src="assets.js"></script>
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

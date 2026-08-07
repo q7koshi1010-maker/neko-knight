@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== LEFT FLIPPER ===== -->
+    <path d="M40,78 Q26,80 27,90 Q34,94 43,86 Z" fill="#f4f6fb"/>
+
+    <!-- ===== BODY + HEAD (same plump seal) ===== -->
+    <path d="M40,44
+             C40,31 48,23 61,23
+             C74,23 83,32 83,45
+             C85,53 85,59 83,65
+             C87,76 87,92 82,104
+             C80,112 76,119 71,121
+             C69,122.5 67,122 66,120
+             C64,116 62,113 59,113
+             C56,113 54,116 52,120
+             C51,122 49,122.5 47,121
+             C42,118 38,111 36,103
+             C31,91 31,75 35,64
+             C33,58 33,50 40,44 Z" fill="#f4f6fb"/>
+    <!-- soft belly shadow -->
+    <path d="M40,100 C48,110 72,110 79,100 C77,110 70,116 60,116 C50,116 42,110 40,100 Z"
+          fill="#e2e6ef" stroke="none"/>
+
+    <!-- ===== FACE (upper-right of head) ===== -->
+    <ellipse cx="52" cy="58" rx="4.6" ry="3" fill="#f7b9cd" stroke="none"/>
+    <ellipse cx="74" cy="58" rx="4.6" ry="3" fill="#f7b9cd" stroke="none"/>
+    <circle cx="56" cy="49" r="3" fill="#3a2d24" stroke="none"/>
+    <circle cx="71" cy="49" r="3" fill="#3a2d24" stroke="none"/>
+    <circle cx="55" cy="47.9" r="1" fill="#ffffff" stroke="none"/>
+    <circle cx="70" cy="47.9" r="1" fill="#ffffff" stroke="none"/>
+    <path d="M61,53 L67,53 L64,56.5 Z" fill="#c98f9a" stroke-width="1.9"/>
+    <path d="M64,56.5 Q60,60.5 56.5,58" fill="none" stroke-width="2.1"/>
+    <path d="M64,56.5 Q68,60.5 71.5,58" fill="none" stroke-width="2.1"/>
+    <g stroke-width="1.6">
+      <path d="M55,53 L41,50" fill="none"/>
+      <path d="M55,57 L42,59" fill="none"/>
+      <path d="M72,53 L86,50" fill="none"/>
+      <path d="M72,57 L85,59" fill="none"/>
+    </g>
+
+    <!-- ===== RIGHT FLIPPER raised, holding wand while bracing ===== -->
+    <path d="M80,72 Q90,68 95,60" fill="none" stroke="#4a3728" stroke-width="9"/>
+    <path d="M80,72 Q90,68 95,60" fill="none" stroke="#f4f6fb" stroke-width="5.4"/>
+
+    <!-- ===== STAR WAND (raised up above the barrier) ===== -->
+    <path d="M95,60 L100,40" fill="none" stroke="#c9a24a" stroke-width="3.4"/>
+    <path d="M101,30 L104.4,39 L114,39.6 L106.4,45.6 L109,55 L101,49.4 L93,55 L95.6,45.6 L88,39.6 L97.6,39 Z"
+          fill="#ffd23f" stroke="#e8a200" stroke-width="2.4"/>
+    <circle cx="95" cy="61" r="4.8" fill="#f4f6fb"/>
+
+    <!-- ===== MAGIC BARRIER (translucent round blue shield in front / right) ===== -->
+    <circle cx="92" cy="84" r="26" fill="#a7d8ff" opacity="0.2" stroke="none"/>
+    <circle cx="92" cy="84" r="21" fill="#bfe6ff" opacity="0.42" stroke="#6fc3f0" stroke-width="3"/>
+    <path d="M80,74 Q84,80 84,88" fill="none" stroke="#eafbff" stroke-width="2.6" opacity="0.9"/>
+    <!-- sparkles on the barrier -->
+    <path d="M100,70 L101,74 L105,75 L101,76 L100,80 L99,76 L95,75 L99,74 Z"
+          fill="#eafbff" stroke="none" opacity="0.95"/>
+    <circle cx="98" cy="98" r="2" fill="#eafbff" stroke="none" opacity="0.9"/>
+    <circle cx="84" cy="97" r="1.6" fill="#eafbff" stroke="none" opacity="0.9"/>
+
+  </g>
+</svg>

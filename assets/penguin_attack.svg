@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#22232b" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== BACK FLIPPER (behind body, left) ===== -->
+    <path d="M36,50 C28,58 27,74 32,86 C34,90 40,90 41,85 C43,72 43,58 40,52 C39,49 37,48 36,50 Z" fill="#33333d"/>
+
+    <!-- ===== FEET (braced stance) ===== -->
+    <path d="M45,108 L37,120 L41,120 L42,122 L45,120 L48,122 L51,120 L53,122 L54,120 L49,108 Z" fill="#ffd23f"/>
+    <path d="M67,108 L59,120 L63,120 L64,122 L67,120 L70,122 L73,120 L75,122 L76,120 L71,108 Z" fill="#ffd23f"/>
+
+    <!-- ===== BODY (black egg) ===== -->
+    <path d="M58,34 C42,34 33,50 33,72 C33,94 40,116 58,116 C76,116 83,94 83,72 C83,50 74,34 58,34 Z" fill="#383843"/>
+    <path d="M37,92 C43,108 73,108 79,92 C79,104 72,116 58,116 C44,116 37,104 37,92 Z" fill="#2b2b34" stroke="none"/>
+
+    <!-- ===== WHITE BELLY ===== -->
+    <ellipse cx="61" cy="84" rx="16" ry="22" fill="#fdfdfb"/>
+    <path d="M45,86 C50,100 72,100 77,86 C77,96 71,104 61,104 C51,104 45,96 45,86 Z" fill="#e7e4dc" stroke="none"/>
+
+    <!-- ===== WHITE FACE (hood) ===== -->
+    <ellipse cx="60" cy="54" rx="17" ry="16" fill="#fdfdfb"/>
+
+    <!-- ===== FACE FEATURES (focused) ===== -->
+    <ellipse cx="50" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="70" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <circle cx="54" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="67" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="52.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+    <circle cx="65.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+
+    <!-- ===== BEAK (yellow triangle, pointing right) ===== -->
+    <path d="M72,53 L88,59 L72,65 Z" fill="#ffd23f"/>
+    <path d="M72,59 L86,59" fill="none" stroke="#e8a200" stroke-width="1.4"/>
+
+    <!-- ===== FRONT FLIPPER (extended forward-right, aiming) ===== -->
+    <path d="M74,54 C82,53 92,57 97,62 C99,64 98,70 94,70 C87,68 80,66 74,64 C71,62 71,56 74,54 Z" fill="#33333d"/>
+
+    <!-- ===== PISTOL (aimed forward, muzzle right) ===== -->
+    <g transform="translate(88,58) rotate(2)">
+      <rect x="0" y="-4" width="30" height="7" rx="2" fill="#2b2b33"/>
+      <rect x="3" y="2" width="17" height="4.5" rx="1.5" fill="#7a1f1f"/>
+      <path d="M5,4 L12,4 L10,19 L2,17 Z" fill="#7a1f1f"/>
+      <path d="M8,6 Q10,13 15,10" fill="none" stroke="#22232b" stroke-width="2"/>
+    </g>
+    <!-- flipper tip gripping -->
+    <circle cx="93" cy="64" r="5" fill="#33333d"/>
+
+    <!-- ===== MUZZLE FLASH ===== -->
+    <path d="M120,57 L122,52 L127,50 L123,56 L127,62 L121,60 L118,65 L118,59 L112,58 L118,55 Z" fill="#ffd23f" stroke="#ff8a1e" stroke-width="1.4"/>
+    <circle cx="119.5" cy="57" r="2.2" fill="#ff8a1e" stroke="none"/>
+
+  </g>
+</svg>

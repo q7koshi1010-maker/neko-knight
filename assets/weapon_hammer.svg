@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- ハンマー：木の柄＋大きな灰色の平たいヘッド（手描きに忠実） -->
+  <g stroke="#4a3728" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 木の柄 -->
+    <rect x="57" y="52" width="14" height="66" rx="5" fill="#b58a5c"/>
+    <path d="M64,58 L64,112" fill="none" stroke="#8a6a3a" stroke-width="2.2"/>
+    <!-- 灰色ヘッド（大きく平たいブロック） -->
+    <rect x="26" y="26" width="76" height="36" rx="8" fill="#b8bcc4"/>
+    <rect x="32" y="31" width="64" height="8" rx="4" fill="#e6e9ef" stroke="none"/>
+    <path d="M30,56 H98" fill="none" stroke="#9aa0ab" stroke-width="3"/>
+  </g>
+</svg>

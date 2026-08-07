@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#e8a200" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 5-point star -->
+    <path d="M64,20
+             L76.6,49.4
+             L108.4,52.2
+             L84.3,73.2
+             L91.5,104.3
+             L64,87.8
+             L36.5,104.3
+             L43.7,73.2
+             L19.6,52.2
+             L51.4,49.4 Z"
+          fill="#ffd23f"/>
+    <!-- highlight -->
+    <path d="M64,29 L72,49 L60,50 Z" fill="#ffe38a" stroke="none"/>
+    <!-- tiny happy face -->
+    <circle cx="57" cy="64" r="3" fill="#7a5a12" stroke="none"/>
+    <circle cx="71" cy="64" r="3" fill="#7a5a12" stroke="none"/>
+    <path d="M58,71 Q64,76 70,71" fill="none" stroke="#7a5a12" stroke-width="2.4"/>
+    <ellipse cx="50" cy="69" rx="3.2" ry="2.1" fill="#ffb0b0" stroke="none" opacity="0.8"/>
+    <ellipse cx="78" cy="69" rx="3.2" ry="2.1" fill="#ffb0b0" stroke="none" opacity="0.8"/>
+  </g>
+</svg>

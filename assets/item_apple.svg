@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 回復アイテム：真っ赤なリンゴ（ゆるかわ手描き風） -->
+  <g stroke="#4a3728" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 赤い実 -->
+    <path d="M64,44
+             C60,33 47,31 39,37
+             C29,45 25,58 27,74
+             C29,91 44,106 64,106
+             C84,106 99,91 101,74
+             C103,58 99,45 89,37
+             C81,31 68,33 64,44 Z"
+          fill="#ff1a1a"/>
+    <!-- 下側の濃い赤い影 -->
+    <path d="M64,106 C48,106 34,95 29,79
+             C36,90 49,98 64,98
+             C79,98 92,90 99,79
+             C94,95 80,106 64,106 Z"
+          fill="#e00000" stroke="none"/>
+    <!-- 上のくぼみ内側の陰 -->
+    <path d="M64,44 C61,38 55,36 51,38 C56,37 61,39 64,44 Z"
+          fill="#e00000" stroke="none"/>
+    <!-- 黄緑の葉/へた部分 -->
+    <path d="M66,42
+             C74,30 88,29 96,33
+             C90,42 79,46 68,45 Z"
+          fill="#8ee62a"/>
+    <!-- 葉の葉脈 -->
+    <path d="M72,42 C80,38 87,36 92,35" fill="none" stroke="#5aa314" stroke-width="1.8"/>
+    <!-- 細い黒い茎（上に少しカーブ） -->
+    <path d="M64,43 C63,33 66,26 62,18" fill="none" stroke="#4a3728" stroke-width="3"/>
+    <!-- 白いつやハイライト -->
+    <ellipse cx="46" cy="58" rx="8" ry="12" fill="#ffffff" stroke="none" opacity="0.85" transform="rotate(-24 46 58)"/>
+    <circle cx="40" cy="76" r="3.2" fill="#ffffff" stroke="none" opacity="0.7"/>
+  </g>
+</svg>

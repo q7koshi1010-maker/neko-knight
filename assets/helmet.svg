@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 使いすてヘルメット：ベージュのまるいヘルメット＋灰色の十字（手描きに忠実） -->
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ドーム -->
+    <path d="M30,86
+             C25,58 40,32 64,32
+             C88,32 103,58 98,86 Z" fill="#e8c9a8"/>
+    <!-- ドームの影 -->
+    <path d="M64,32 C82,32 94,52 93,74 C92,60 82,44 64,44
+             C46,44 36,60 35,74 C34,52 46,32 64,32 Z" fill="#dab892" stroke="none"/>
+    <!-- つば -->
+    <path d="M20,86 C20,79 30,75 44,75 L84,75 C98,75 108,79 108,86
+             C108,94 97,99 84,99 L44,99 C31,99 20,94 20,86 Z" fill="#e8c9a8"/>
+    <path d="M28,88 C42,93 86,93 100,88" fill="none" stroke="#c9a985" stroke-width="2.2"/>
+    <!-- 灰色の十字 -->
+    <g fill="#9aa0ab" stroke="#7d828d" stroke-width="2">
+      <rect x="57.5" y="48" width="13" height="32" rx="2.5"/>
+      <rect x="48" y="57.5" width="32" height="13" rx="2.5"/>
+    </g>
+  </g>
+</svg>

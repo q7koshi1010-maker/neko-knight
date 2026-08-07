@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- heart -->
+    <path d="M64,104
+             C40,86 22,71 22,50
+             C22,36 33,26 46,26
+             C55,26 61,31 64,38
+             C67,31 73,26 82,26
+             C95,26 106,36 106,50
+             C106,71 88,86 64,104 Z"
+          fill="#ff5d73"/>
+    <!-- soft lower shadow -->
+    <path d="M64,104 C52,95 41,86 34,76 C46,84 56,90 64,96 C72,90 82,84 94,76 C87,86 76,95 64,104 Z"
+          fill="#e6435a" stroke="none"/>
+    <!-- white highlight -->
+    <ellipse cx="45" cy="47" rx="7" ry="10" fill="#ffffff" stroke="none" opacity="0.85" transform="rotate(-22 45 47)"/>
+  </g>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- left wing (3 scallops) -->
+    <path d="M44 56
+             C31 44 17 44 8 52
+             C13 55 11 60 15 63
+             C19 59 21 61 23 66
+             C27 62 29 64 32 69
+             C36 65 38 67 41 71
+             C45 67 47 64 48 68 Z" fill="#a98bd0"/>
+    <!-- right wing (3 scallops) -->
+    <path d="M84 56
+             C97 44 111 44 120 52
+             C115 55 117 60 113 63
+             C109 59 107 61 105 66
+             C101 62 99 64 96 69
+             C92 65 90 67 87 71
+             C83 67 81 64 80 68 Z" fill="#a98bd0"/>
+    <!-- wing shade creases -->
+    <path d="M44 60 L18 58" fill="none" stroke-width="2" stroke="#8b6cb8"/>
+    <path d="M45 65 L28 66" fill="none" stroke-width="2" stroke="#8b6cb8"/>
+    <path d="M84 60 L110 58" fill="none" stroke-width="2" stroke="#8b6cb8"/>
+    <path d="M83 65 L100 66" fill="none" stroke-width="2" stroke="#8b6cb8"/>
+    <!-- pointed ears -->
+    <path d="M50 42 L44 22 Q56 26 58 44 Z" fill="#a98bd0"/>
+    <path d="M78 42 L84 22 Q72 26 70 44 Z" fill="#a98bd0"/>
+    <!-- round body -->
+    <path d="M64 38
+             C46 38 39 52 39 66
+             C39 84 50 94 64 94
+             C78 94 89 84 89 66
+             C89 52 82 38 64 38 Z" fill="#a98bd0"/>
+    <!-- belly shade -->
+    <path d="M47 74 C52 90 76 90 81 74 C74 84 54 84 47 74 Z"
+          fill="#8b6cb8" stroke="none"/>
+    <!-- little feet / claws -->
+    <path d="M54 92 L50 102 L58 95 Z" fill="#a98bd0" stroke-width="2.6"/>
+    <path d="M64 94 L64 104 L70 95 Z" fill="#a98bd0" stroke-width="2.6"/>
+    <path d="M74 92 L78 102 L70 95 Z" fill="#a98bd0" stroke-width="2.6"/>
+    <!-- eyes (dots) -->
+    <circle cx="55" cy="63" r="4" fill="#2b2b33" stroke="none"/>
+    <circle cx="73" cy="63" r="4" fill="#2b2b33" stroke="none"/>
+    <circle cx="56.2" cy="61.7" r="1.2" fill="#ffffff" stroke="none"/>
+    <circle cx="74.2" cy="61.7" r="1.2" fill="#ffffff" stroke="none"/>
+    <!-- small nose -->
+    <path d="M61 71 L67 71 L64 75 Z" fill="#4a3728" stroke="none"/>
+    <!-- two small fangs -->
+    <path d="M60 77 L58 83 L62 78 Z" fill="#ffffff" stroke-width="1.8"/>
+    <path d="M68 77 L70 83 L66 78 Z" fill="#ffffff" stroke-width="1.8"/>
+  </g>
+</svg>

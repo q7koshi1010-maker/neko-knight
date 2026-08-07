@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 300">
+  <!-- 遠景の明るい黄緑の丘：上辺が丸いこぶ状に連なる。濃い緑のラクガキ線テクスチャ。左右端シームレス（端 y=80 で一致）。 -->
+  <defs>
+    <linearGradient id="villhillg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ee62a"/>
+      <stop offset="1" stop-color="#7fe00c"/>
+    </linearGradient>
+  </defs>
+  <!-- 丘の本体（6つのこぶ・左右端 y=80） -->
+  <path d="M0,80
+           Q42.67,18 85.33,80 Q128,18 170.67,80 Q213.33,18 256,80
+           Q298.67,18 341.33,80 Q384,18 426.67,80 Q469.33,18 512,80
+           L512,300 L0,300 Z" fill="url(#villhillg)"/>
+  <!-- こぶの縁の明るいハイライト -->
+  <path d="M0,80 Q42.67,18 85.33,80 Q128,18 170.67,80 Q213.33,18 256,80
+           Q298.67,18 341.33,80 Q384,18 426.67,80 Q469.33,18 512,80"
+        fill="none" stroke="#a6ee4c" stroke-width="3" stroke-linecap="round" stroke-opacity="0.8"/>
+  <!-- 濃い緑のラクガキ状テクスチャ線（左右端をまたがない） -->
+  <g fill="none" stroke="#4fb000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85">
+    <path d="M40,96 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M56,118 q7,-7 14,0 q7,7 14,0"/>
+    <path d="M128,92 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M140,116 q7,-7 14,0 q7,7 14,0"/>
+    <path d="M214,96 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M226,120 q7,-7 14,0 q7,7 14,0"/>
+    <path d="M300,92 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M312,116 q7,-7 14,0 q7,7 14,0"/>
+    <path d="M386,96 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M398,120 q7,-7 14,0 q7,7 14,0"/>
+    <path d="M470,94 q6,-8 12,0 q6,8 12,0"/>
+    <path d="M456,118 q7,-7 14,0 q7,7 14,0"/>
+    <!-- 短い縦のラクガキ -->
+    <path d="M96,140 l-3,14 M180,146 l3,14 M268,140 l-3,14 M352,146 l3,14 M436,140 l-3,14"/>
+  </g>
+</svg>

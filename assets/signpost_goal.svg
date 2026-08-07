@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 160">
+  <!-- ゴールの看板：黄色い板＋上向きピンク矢印・茶色の柱。柱底 y≈156 -->
+  <g stroke="#4a3728" stroke-width="3.3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 茶色の柱 -->
+    <rect x="56" y="60" width="16" height="96" rx="4" fill="#a9743e"/>
+    <path d="M64,64 L64,152" fill="none" stroke="#8a5c2e" stroke-width="3" stroke-opacity="0.6"/>
+    <!-- 黄色い板 -->
+    <rect x="26" y="18" width="76" height="60" rx="8" fill="#ffd23f"/>
+    <path d="M31,72 C55,76 73,76 97,72" fill="none" stroke="#e8a200" stroke-width="3" stroke-opacity="0.7"/>
+    <!-- 上向きのピンク矢印 -->
+    <path d="M64,26
+             L84,48 L74,48 L74,66 L54,66 L54,48 L44,48 Z"
+          fill="#ff7ba6"/>
+    <path d="M64,31 L78,46" fill="none" stroke="#ffd0e0" stroke-width="2.4"/>
+    <!-- 板を留めるボルト -->
+    <circle cx="34" cy="26" r="2.4" fill="#e8a200"/>
+    <circle cx="94" cy="26" r="2.4" fill="#e8a200"/>
+  </g>
+</svg>

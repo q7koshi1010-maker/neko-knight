@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#2a2a2a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wooden handle (brown-gold), extends to lower-right -->
+    <path d="M50.9 47.2 L61.1 40.8 L103.1 106.8 L92.9 113.2 Z" fill="#c8983f"/>
+    <!-- handle wood grain -->
+    <path d="M56 44 L98 110" fill="none" stroke="#9a6f28" stroke-width="2"/>
+    <!-- handle end knob -->
+    <path d="M92.9 113.2 L103.1 106.8 L108 114 Q109 118 104 119 L96 120 Q91 119 92.9 113.2 Z"
+          fill="#c8983f"/>
+    <!-- axe head body (dark gray, fan-shaped bit), blade faces upper-left -->
+    <path d="M61 45
+             C61 32 59 22 53 17
+             C47 12 39 13 34 17
+             L23 21
+             C13 30 13 42 23 51
+             L35 53
+             C45 54 56 51 61 45 Z" fill="#3a3a3a"/>
+    <!-- bright blade edge (upper-left cutting edge) -->
+    <path d="M23 21
+             C13 30 13 42 23 51
+             C26 44 26 30 31 22
+             C28 20 25 20 23 21 Z" fill="#9a9a9a"/>
+    <!-- poll accent -->
+    <path d="M55 26 Q59 35 55 45" fill="none" stroke="#252525" stroke-width="2.2"/>
+  </g>
+</svg>

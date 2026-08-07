@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 24">
+  <!-- 弓矢の弾：右向きの矢 -->
+  <g stroke="#4a3728" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 矢じり（銀・右向き） -->
+    <path d="M74 5 L92 12 L74 19 L79 12 Z" fill="#b8bcc4"/>
+    <!-- 柄 -->
+    <rect x="14" y="10" width="62" height="4" rx="1.5" fill="#8a6a3a"/>
+    <!-- 羽根（左） -->
+    <path d="M6 5 L20 11 L13 12 L20 13 L6 19 L11 12 Z" fill="#e6e9ef"/>
+  </g>
+</svg>

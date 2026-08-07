@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- left hand (spread out to the side) -->
+    <path d="M34 68 Q20 62 22 73 Q29 77 39 72 Z" fill="#f4f6fb"/>
+    <!-- right hand (raised up) -->
+    <path d="M92 58 Q106 48 105 60 Q99 66 89 63 Z" fill="#f4f6fb"/>
+    <!-- body with flame-like wavy tail -->
+    <path d="M34 72
+             C34 38 42 22 64 22
+             C86 22 94 38 94 70
+             C94 82 98 90 104 96
+             Q96 100 92 92
+             Q90 104 82 100
+             Q80 110 72 103
+             Q68 112 61 103
+             Q56 111 49 102
+             Q44 110 39 101
+             Q35 96 34 84 Z" fill="#f4f6fb"/>
+    <!-- soft shadow -->
+    <path d="M79 42 C90 56 90 82 84 96 Q88 82 86 64 C85 54 82 47 79 42 Z"
+          fill="#dfe3ee" stroke="none"/>
+    <!-- cheeks -->
+    <circle cx="49" cy="66" r="3.6" fill="#f3b6cf" stroke="none" opacity="0.85"/>
+    <circle cx="79" cy="66" r="3.6" fill="#f3b6cf" stroke="none" opacity="0.85"/>
+    <!-- eyes (separated dots) -->
+    <circle cx="53" cy="54" r="3.8" fill="#2b2b33" stroke="none"/>
+    <circle cx="75" cy="54" r="3.8" fill="#2b2b33" stroke="none"/>
+    <circle cx="54.3" cy="52.6" r="1.2" fill="#ffffff" stroke="none"/>
+    <circle cx="76.3" cy="52.6" r="1.2" fill="#ffffff" stroke="none"/>
+    <!-- open smiling mouth -->
+    <path d="M52 64 Q64 76 76 64" fill="none" stroke-width="2.8"/>
+    <!-- pink tongue hanging down -->
+    <path d="M59 70 Q59 82 64 82 Q69 82 69 70 Q64 74 59 70 Z"
+          fill="#f0889a" stroke-width="2.4"/>
+  </g>
+</svg>

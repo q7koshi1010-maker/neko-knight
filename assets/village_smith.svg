@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 210">
+  <!-- かじ屋：角ばったグレーの金属的な建物・紫の輪郭。上=濃いグレー屋根／上中央=明るいグレーの看板板（文字は入れない）／下=中間グレー。少し不揃いで子どもの絵っぽく。底辺 y≈204。 -->
+  <g stroke="#7b4fd0" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 下：中間グレーの本体（少し不揃いな四角） -->
+    <path d="M31,80 L169,77 L172,204 L28,204 Z" fill="#8a8a8a"/>
+    <!-- 本体の下側の陰影 -->
+    <path d="M29,160 L171,158 L172,204 L28,204 Z" fill="#767676" opacity="0.6" stroke="none"/>
+    <!-- 上：濃いグレーの屋根（台形） -->
+    <path d="M22,80 L58,34 L142,32 L178,78 Z" fill="#6b6b6b"/>
+    <!-- 上中央：明るいグレーの看板板（平らに空ける＝文字はゲーム側） -->
+    <rect x="46" y="86" width="108" height="38" rx="3" fill="#d6d6d6"/>
+    <!-- 金属パネルの継ぎ目（紫の細線） -->
+    <path d="M100,124 L100,204" fill="none" stroke="#7b4fd0" stroke-width="2.2" stroke-opacity="0.5"/>
+    <path d="M64,134 L64,204 M136,134 L136,204" fill="none" stroke="#7b4fd0" stroke-width="2" stroke-opacity="0.35"/>
+    <!-- リベット（金属感） -->
+    <circle cx="40" cy="90" r="2.6" fill="#5f5f5f" stroke="none"/>
+    <circle cx="160" cy="88" r="2.6" fill="#5f5f5f" stroke="none"/>
+    <circle cx="40" cy="198" r="2.6" fill="#5f5f5f" stroke="none"/>
+    <circle cx="160" cy="198" r="2.6" fill="#5f5f5f" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#22232b" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== FEET (braced) ===== -->
+    <path d="M45,108 L37,120 L41,120 L42,122 L45,120 L48,122 L51,120 L53,122 L54,120 L49,108 Z" fill="#ffd23f"/>
+    <path d="M67,108 L59,120 L63,120 L64,122 L67,120 L70,122 L73,120 L75,122 L76,120 L71,108 Z" fill="#ffd23f"/>
+
+    <!-- ===== BODY (black egg) ===== -->
+    <path d="M58,34 C42,34 33,50 33,72 C33,94 40,116 58,116 C76,116 83,94 83,72 C83,50 74,34 58,34 Z" fill="#383843"/>
+    <path d="M37,92 C43,108 73,108 79,92 C79,104 72,116 58,116 C44,116 37,104 37,92 Z" fill="#2b2b34" stroke="none"/>
+
+    <!-- ===== WHITE BELLY ===== -->
+    <ellipse cx="61" cy="84" rx="16" ry="22" fill="#fdfdfb"/>
+    <path d="M45,86 C50,100 72,100 77,86 C77,96 71,104 61,104 C51,104 45,96 45,86 Z" fill="#e7e4dc" stroke="none"/>
+
+    <!-- ===== WHITE FACE (hood) ===== -->
+    <ellipse cx="60" cy="54" rx="17" ry="16" fill="#fdfdfb"/>
+
+    <!-- ===== FACE FEATURES (bracing) ===== -->
+    <ellipse cx="50" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="70" cy="60" rx="4.5" ry="3" fill="#ffc2cf" stroke="none"/>
+    <circle cx="54" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="67" cy="50" r="5" fill="#1e1e24" stroke="none"/>
+    <circle cx="52.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+    <circle cx="65.2" cy="48" r="1.5" fill="#ffffff" stroke="none"/>
+
+    <!-- ===== BEAK (yellow triangle, pointing right) ===== -->
+    <path d="M72,53 L88,59 L72,65 Z" fill="#ffd23f"/>
+    <path d="M72,59 L86,59" fill="none" stroke="#e8a200" stroke-width="1.4"/>
+
+    <!-- ===== CROSSED FLIPPERS (defense; X over the belly) ===== -->
+    <!-- left flipper: top-left down to bottom-right -->
+    <path d="M40,56 C46,60 66,86 72,96 C74,99 70,104 66,101 C56,94 44,72 37,62 C35,59 37,54 40,56 Z" fill="#33333d"/>
+    <!-- right flipper: top-right down to bottom-left (on top) -->
+    <path d="M78,56 C72,60 52,86 46,96 C44,99 48,104 52,101 C62,94 74,72 81,62 C83,59 81,54 78,56 Z" fill="#2f2f39"/>
+
+    <!-- ===== PISTOL (still held, tucked in right flipper, muzzle down-left) ===== -->
+    <g transform="translate(52,98) rotate(158)">
+      <rect x="0" y="-4" width="26" height="7" rx="2" fill="#2b2b33"/>
+      <rect x="3" y="2" width="15" height="4.5" rx="1.5" fill="#7a1f1f"/>
+      <path d="M5,4 L12,4 L10,18 L2,16 Z" fill="#7a1f1f"/>
+      <circle cx="25" cy="-0.5" r="1.1" fill="#111116" stroke="none"/>
+    </g>
+    <!-- flipper tip gripping -->
+    <circle cx="51" cy="98" r="5" fill="#2f2f39"/>
+
+  </g>
+</svg>

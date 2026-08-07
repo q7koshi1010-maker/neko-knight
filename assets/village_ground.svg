@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 緑の草地タイル：上は明るい草（濃い縁）、下はやや濃い緑。左右端シームレス（境界端 y=44 で一致）。上辺が地面表面。 -->
+  <!-- やや濃い緑のベース（下側） -->
+  <rect x="0" y="0" width="128" height="128" fill="#4c9c06"/>
+  <!-- 下側の陰影 -->
+  <rect x="0" y="80" width="128" height="48" fill="#3f8a05" opacity="0.6"/>
+  <!-- 明るい草の帯（上辺表面が平ら・波打つ下端／左右端 y=44 で一致） -->
+  <path d="M0,0 L128,0 L128,44
+           C116,58 104,40 92,52 C80,64 68,44 56,54
+           C44,64 32,44 20,52 C12,58 6,50 0,44 Z"
+        fill="#7fe00c"/>
+  <!-- 草の濃い縁 -->
+  <path d="M0,44 C6,50 12,58 20,52 C32,44 44,64 56,54 C68,44 80,64 92,52 C104,40 116,58 128,44"
+        fill="none" stroke="#4fb000" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- 草の刃（上辺近く・左右端をまたがない） -->
+  <path d="M28,14 L26,4 M30,14 L33,5 M62,16 L60,5 M64,16 L67,6 M96,14 L94,4 M98,14 L101,5"
+        fill="none" stroke="#a6ee4c" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

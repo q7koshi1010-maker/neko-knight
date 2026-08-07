@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- thin stick legs, claw feet (bottom y~122) -->
+    <path d="M55 108 L50 118" fill="none" stroke-width="3.4"/>
+    <path d="M50 118 L43 121 M50 118 L50 123 M50 118 L57 122" fill="none" stroke-width="2.8"/>
+    <path d="M73 108 L79 118" fill="none" stroke-width="3.4"/>
+    <path d="M79 118 L72 122 M79 118 L79 123 M79 118 L86 121" fill="none" stroke-width="2.8"/>
+
+    <!-- thin stick arms raised up-out -->
+    <path d="M41 82 Q29 70 23 54" fill="none" stroke-width="3.2"/>
+    <path d="M87 82 Q99 70 105 54" fill="none" stroke-width="3.2"/>
+    <!-- clawed hands (3 prongs) -->
+    <path d="M23 54 L17 50 M23 54 L21 47 M23 54 L28 49" fill="none" stroke-width="2.6"/>
+    <path d="M105 54 L100 49 M105 54 L107 47 M105 54 L113 50" fill="none" stroke-width="2.6"/>
+
+    <!-- separate round body (lower daruma ball) -->
+    <ellipse cx="64" cy="90" rx="26" ry="23" fill="#2b2b33"/>
+    <!-- big round head (upper daruma ball, slightly larger) -->
+    <ellipse cx="64" cy="42" rx="27" ry="28" fill="#2b2b33"/>
+  </g>
+  <!-- belly shadow (pencil-fill feel) -->
+  <path d="M42 89 Q64 102 86 89 Q83 108 64 109 Q45 108 42 89 Z" fill="#1f1f26" stroke="none"/>
+
+  <!-- two white slanted tsuri-me eyes, no mouth -->
+  <g stroke="#4a3728" stroke-width="1.3">
+    <ellipse cx="54" cy="45" rx="5.2" ry="8.4" fill="#fdfdfb" transform="rotate(-26 54 45)"/>
+    <ellipse cx="75" cy="41" rx="5.6" ry="9" fill="#fdfdfb" transform="rotate(-26 75 41)"/>
+  </g>
+  <!-- tiny black protrusion (nose/fang) between-below the eyes -->
+  <path d="M62 53 L67 53 L64.5 58 Z" fill="#1f1f26" stroke="#1f1f26" stroke-width="1" stroke-linejoin="round"/>
+
+  <!-- small flame in left hand -->
+  <path d="M23 52 C15 45 19 35 23 28 C27 35 32 42 28 50 C27 54 25 54 23 52 Z" fill="#ff8a1e" stroke="#d94a6a" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M23 49 C19 44 21 39 23 34 C25 39 28 44 26 48 C25 51 24 51 23 49 Z" fill="#ffd23f" stroke="none"/>
+
+  <!-- small flame in right hand -->
+  <path d="M105 52 C97 45 101 35 105 28 C109 35 114 42 110 50 C109 54 107 54 105 52 Z" fill="#ff8a1e" stroke="#d94a6a" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M105 49 C101 44 103 39 105 34 C107 39 110 44 108 48 C107 51 106 51 105 49 Z" fill="#ffd23f" stroke="none"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- ステッキ：黄色い星＋細い柄＋ピンクの握り（手描きに忠実） -->
+  <g stroke="#4a3728" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 柄 -->
+    <path d="M66,44 L60,104" fill="none" stroke="#3a2d24" stroke-width="5"/>
+    <!-- ピンクの握り -->
+    <ellipse cx="59" cy="107" rx="11" ry="10" fill="#ffb3f0"/>
+    <!-- 黄色い星 -->
+    <path d="M66,6 L71.9,21.9 L88.8,22.6 L71.9,33.1 L80.1,49.4 L66,40 L51.9,49.4 L60.1,33.1 L43.2,22.6 L60.1,21.9 Z"
+          fill="#ffee00" stroke="#e0c800" stroke-width="3"/>
+  </g>
+</svg>

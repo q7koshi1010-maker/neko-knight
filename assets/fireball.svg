@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <g stroke="#4a3728" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- outer flame (pointed top, rounded bottom) -->
+    <path d="M24 5
+             C13 18 11 28 17 35
+             C20 40 28 40 31 35
+             C37 28 35 18 24 5 Z" fill="#ff8a1e"/>
+    <!-- inner core -->
+    <path d="M24 16
+             C18 23 17 29 20 33
+             C22 36 26 36 28 33
+             C31 29 30 23 24 16 Z" fill="#ffd23f" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 96">
+  <g stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- grip (dark red, angled back-down) -->
+    <path d="M36 50 L58 50 L50 88 Q49 91 45 91 L34 91 Q30 91 31 86 L34 52 Q34 50 36 50 Z"
+          fill="#7a1f1f"/>
+    <!-- grip texture lines -->
+    <path d="M37 60 L52 60" fill="none" stroke="#571414" stroke-width="2"/>
+    <path d="M36 68 L50 68" fill="none" stroke="#571414" stroke-width="2"/>
+    <path d="M35 76 L48 76" fill="none" stroke="#571414" stroke-width="2"/>
+    <!-- trigger guard (dark red ring) -->
+    <path d="M54 62 a12 11 0 1 0 24 0 a12 11 0 1 0 -24 0 Z
+             M60 62 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 Z"
+          fill="#7a1f1f" fill-rule="evenodd"/>
+    <!-- trigger (black) -->
+    <path d="M64 57 Q59 60 61 67 Q64 66 66 59 Z" fill="#1a1a1a" stroke="none"/>
+    <!-- frame / dust cover (dark red) -->
+    <path d="M32 46 H100 Q104 46 104 50 Q104 56 98 56 H40 Q34 56 32 52 Z"
+          fill="#7a1f1f"/>
+    <!-- slide / barrel (black), muzzle to the right -->
+    <path d="M34 28 H104 Q110 28 110 34 V44 Q110 50 104 50 H34 Q28 50 28 44 V34 Q28 28 34 28 Z"
+          fill="#1a1a1a"/>
+    <!-- slide highlight -->
+    <path d="M40 33 H98" fill="none" stroke="#4a4a4a" stroke-width="2.4"/>
+    <!-- muzzle bore -->
+    <circle cx="104" cy="39" r="3.2" fill="#3a3a3a" stroke="none"/>
+    <!-- rear sight -->
+    <path d="M34 28 L34 23 L39 23 L39 28 Z" fill="#1a1a1a"/>
+    <!-- front sight -->
+    <path d="M97 28 L97 24 L101 24 L101 28 Z" fill="#1a1a1a"/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#5b4636" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== SHIELD (lower-left, rounded, cross mark) ===== -->
+    <g>
+      <path d="M6,80 L28,80 L28,99 C28,109 17,116 17,116 C17,116 6,109 6,99 Z" fill="#c9ccd4"/>
+      <path d="M9,83 L25,83 L25,98 C25,105 17,111 17,111" fill="none" stroke="#eef1f6" stroke-width="1.4"/>
+      <rect x="14" y="86" width="4.5" height="21" rx="1.2" fill="#9aa0ab" stroke-width="2.4"/>
+      <rect x="8.5" y="92.5" width="16" height="4.5" rx="1.2" fill="#9aa0ab" stroke-width="2.4"/>
+    </g>
+
+    <!-- ===== BODY (fluffy puppy body, 2 legs, feet at y~122) ===== -->
+    <path d="M46,60
+             C40,69 38,88 41,102
+             C42,108 45,116 48,120
+             C49,122 51,122 52,120
+             C54,116 56,113 59,113
+             C62,113 64,116 66,120
+             C67,122 69,122 70,120
+             C73,116 76,108 77,102
+             C80,88 78,69 72,60 Z" fill="#fdfbf5"/>
+    <path d="M44,99 C51,108 67,108 74,99 C73,107 66,111 59,111 C52,111 45,107 44,99 Z" fill="#eae4d6" stroke="none"/>
+
+    <!-- ===== SWORD thrust forward-right (horizontal) ===== -->
+    <g>
+      <path d="M92,68 L92,76 L120,76 L126,72 L120,68 Z" fill="#c9ccd4"/>
+      <path d="M94,72 L118,72" fill="none" stroke="#eef1f6" stroke-width="1.5"/>
+      <rect x="87" y="62" width="5" height="20" rx="2" fill="#9aa0ab"/>
+      <rect x="79" y="69" width="9" height="6" rx="2" fill="#9aa0ab"/>
+      <circle cx="77" cy="72" r="3" fill="#9aa0ab"/>
+    </g>
+
+    <!-- ===== RIGHT ARM extended to thrust ===== -->
+    <path d="M70,80 Q80,74 89,72" fill="none" stroke="#5b4636" stroke-width="10"/>
+    <path d="M70,80 Q80,74 89,72" fill="none" stroke="#fdfbf5" stroke-width="6"/>
+    <circle cx="89" cy="72" r="5.2" fill="#fdfbf5"/>
+
+    <!-- ===== HEAD ===== -->
+    <ellipse cx="56" cy="44" rx="22" ry="21" fill="#fdfbf5"/>
+    <path d="M45,27 C33,19 19,25 18,40 C17,52 24,62 35,61 C42,60 45,53 46,46 Z" fill="#fdfbf5"/>
+    <path d="M67,27 C79,19 93,25 94,40 C95,52 88,62 77,61 C70,60 67,53 66,46 Z" fill="#fdfbf5"/>
+    <path d="M23,45 C26,56 33,60 41,56 C35,60 27,57 23,45 Z" fill="#eae4d6" stroke="none"/>
+    <path d="M89,45 C86,56 79,60 71,56 C77,60 85,57 89,45 Z" fill="#eae4d6" stroke="none"/>
+
+    <!-- ===== FACE (determined) ===== -->
+    <ellipse cx="45" cy="50" rx="4.6" ry="3" fill="#ffc2cf" stroke="none"/>
+    <ellipse cx="67" cy="50" rx="4.6" ry="3" fill="#ffc2cf" stroke="none"/>
+    <circle cx="48" cy="42" r="3.2" fill="#3a2d24" stroke="none"/>
+    <circle cx="64" cy="42" r="3.2" fill="#3a2d24" stroke="none"/>
+    <circle cx="46.9" cy="40.9" r="1" fill="#ffffff" stroke="none"/>
+    <circle cx="62.9" cy="40.9" r="1" fill="#ffffff" stroke="none"/>
+    <path d="M53,49 Q56,46.5 59,49 Q59,52.5 56,53.2 Q53,52.5 53,49 Z" fill="#f28fa0" stroke-width="2"/>
+    <path d="M56,53.2 L56,56" fill="none" stroke-width="2"/>
+    <path d="M56,57 Q52,60.5 49,57.5" fill="none" stroke-width="2.2"/>
+    <path d="M56,57 Q60,60.5 63,57.5" fill="none" stroke-width="2.2"/>
+
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g stroke="#4a3728" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ===== EARS (yellow, black inner) ===== -->
+    <path d="M42,44 C35,32 35,21 42,17 C51,16 56,27 55,42 Z" fill="#ffd21e"/>
+    <path d="M74,44 C81,32 81,21 74,17 C65,16 60,27 61,42 Z" fill="#ffd21e"/>
+    <path d="M44,39 C41,31 42,24 46,22 C50,24 51,33 49,40 Z" fill="#2b2b2b" stroke="none"/>
+    <path d="M72,39 C75,31 74,24 70,22 C66,24 65,33 67,40 Z" fill="#2b2b2b" stroke="none"/>
+
+    <!-- ===== BODY (planted stance) ===== -->
+    <path d="M45,70 C37,80 36,98 40,110 C42,116 45,120 48,121 C49,123 52,123 53,121
+             C55,118 57,116 58,116 C59,116 61,118 63,121 C64,123 67,123 68,121
+             C71,120 74,116 76,110 C80,98 79,80 71,70 Z" fill="#ffd21e"/>
+    <ellipse cx="58" cy="93" rx="9.5" ry="15" fill="#fdfdfb" stroke="none"/>
+    <path d="M42,105 C50,113 66,113 74,105 C73,112 66,116 58,116 C50,116 43,112 42,105 Z" fill="#e9b800" stroke="none"/>
+
+    <!-- ===== ARMS (left back, right slashing forward-up) ===== -->
+    <path d="M46,80 Q38,84 32,82" fill="none" stroke="#4a3728" stroke-width="10"/>
+    <path d="M46,80 Q38,84 32,82" fill="none" stroke="#ffd21e" stroke-width="6"/>
+    <path d="M70,78 Q83,71 93,63" fill="none" stroke="#4a3728" stroke-width="10"/>
+    <path d="M70,78 Q83,71 93,63" fill="none" stroke="#ffd21e" stroke-width="6"/>
+    <circle cx="93" cy="62" r="5.2" fill="#ffd21e"/>
+
+    <!-- ===== HEAD (yellow) ===== -->
+    <circle cx="58" cy="50" r="23" fill="#ffd21e"/>
+    <path d="M46,58 C46,52 52,49 58,49 C64,49 70,52 70,58 C70,65 64,69 58,69 C52,69 46,65 46,58 Z" fill="#fdfdfb"/>
+
+    <!-- ===== SPOTS ===== -->
+    <ellipse cx="49" cy="39" rx="3" ry="2.4" fill="#2b2b2b" stroke="none" transform="rotate(-20 49 39)"/>
+    <ellipse cx="67" cy="39" rx="3" ry="2.4" fill="#2b2b2b" stroke="none" transform="rotate(20 67 39)"/>
+    <ellipse cx="58" cy="35" rx="2.6" ry="2" fill="#2b2b2b" stroke="none"/>
+    <ellipse cx="41" cy="50" rx="2.6" ry="2" fill="#2b2b2b" stroke="none"/>
+    <ellipse cx="75" cy="50" rx="2.6" ry="2" fill="#2b2b2b" stroke="none"/>
+
+    <!-- ===== EYE PATCHES + eyes (fierce) ===== -->
+    <path d="M46,48 C48,43 54,43 56,49 C54,53 48,53 46,50 Z" fill="#2b2b2b" stroke="none"/>
+    <path d="M60,49 C62,43 68,43 70,48 C68,53 62,53 60,50 Z" fill="#2b2b2b" stroke="none"/>
+    <circle cx="52" cy="47.5" r="1.7" fill="#ffffff" stroke="none"/>
+    <circle cx="66" cy="47.5" r="1.7" fill="#ffffff" stroke="none"/>
+
+    <!-- ===== NOSE + OPEN MOUTH ===== -->
+    <path d="M55,57 L61,57 L58,60 Z" fill="#3a2d24" stroke-width="1.4"/>
+    <path d="M53,60 Q58,65 63,60" fill="none" stroke-width="2"/>
+  </g>
+</svg>

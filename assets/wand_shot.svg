@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- ステッキの弾：ピンク縁の黄色い魔法の星 -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M32,4 L39.05,22.3 L58.6,23.35 L39.05,35.7 L48.46,54.65 L32,44 L15.54,54.65 L24.95,35.7 L5.37,23.35 L24.95,22.3 Z"
+          fill="#ffec3d" stroke="#ff9ae0" stroke-width="3"/>
+    <circle cx="32" cy="28" r="4" fill="#fff7c2" stroke="none"/>
+  </g>
+</svg>
