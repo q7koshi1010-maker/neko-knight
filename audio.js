@@ -19,6 +19,15 @@ function ensure(){
   return true;
 }
 
+// iOS対策：ユーザー操作中に無音バッファを1回鳴らして、音声出力を完全に有効化する
+function silentPing(){
+  if(!ctx) return;
+  try{
+    const b = ctx.createBuffer(1, 1, ctx.sampleRate);
+    const s = ctx.createBufferSource(); s.buffer=b; s.connect(ctx.destination); s.start(0);
+  }catch(e){}
+}
+
 // ---- 汎用トーン ----
 function tone(f0, f1, dur, type, vol, when, dest){
   if(!ctx) return;
@@ -120,7 +129,7 @@ function stopMusic(){
 
 // ---- 公開API ----
 window.GameAudio = {
-  unlock(){ if(!ensure()) return; if(ctx.state==='suspended') ctx.resume(); },
+  unlock(){ if(!ensure()) return; if(ctx.state==='suspended') ctx.resume(); silentPing(); },
   play(name){ if(!ready||muted) return; if(SFX[name]) SFX[name](); },
   music(flag){ if(!ready) return; if(flag) startMusic(); else stopMusic(); },
   toggleMute(){
@@ -128,6 +137,17 @@ window.GameAudio = {
     if(master) master.gain.value = muted?0:0.9;
     return muted;
   },
-  isMuted(){ return muted; }
+  isMuted(){ return muted; },
+  state(){ return { ctx: ctx?ctx.state:'none', ready, muted, musicOn: seq.on }; }  // デバッグ用
 };
+
+// iOS/PWA対策：最初のユーザー操作で確実にアンロック。フォアグラウンド復帰時にも再開。
+(function(){
+  const kick = ()=>{ if(ctx && ctx.state==='running') return; try{ window.GameAudio.unlock(); }catch(e){} };
+  ['touchend','pointerup','mousedown','keydown'].forEach(ev =>
+    document.addEventListener(ev, kick, { capture:true, passive:true }));
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden && ctx && ctx.state==='suspended') ctx.resume();
+  });
+})();
 })();
