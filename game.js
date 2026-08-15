@@ -19,6 +19,9 @@ const MAX_FALL = 1200;
 const HELMET_MAX = 1;            // ヘルメット1個が受け止められるダメージ回数（1回でこわれる）
 const BOOT_COST = 40;            // ジャンプ靴の値段（買い切り）
 const HELMET_COST = 10;          // 使いすてヘルメット1個の値段
+const BOMB_COST = 100;           // 使いすて爆弾1個の値段
+const BOMB_DMG = 2;              // 爆弾1回の攻撃力（＝ふつうの攻撃2回分）
+const BOMB_RANGE = 170;          // 爆弾の効果はんい（プレイヤーからの半径）
 const COYOTE = 0.09;             // 地面を離れてもジャンプ可能な猶予
 const JUMP_BUF = 0.10;           // ジャンプ入力の先行受付
 const TILE = 60;                 // 地面の基準タイル
@@ -58,6 +61,7 @@ const PLACE = {              // フォールバック色
   cheetahIdle:'#ffd21e', cheetahWalk:'#ffd21e', cheetahAttack:'#ffd21e', cheetahGuard:'#ffd21e',
   wpnGun:'#7a1f1f', wpnAxe:'#3a3a3a', wpnBat:'#b8bcc4', bulletShot:'#ffcf3f',
   wpnWand:'#ffee00', wpnHammer:'#b8bcc4', wpnBow:'#b58a5c', wpnWandShot:'#ffec3d', wpnArrow:'#b8bcc4',
+  knightSword:'#2b2b2b', knightShield:'#9aa0ab',
   heart:'#ff5d73', shark:'#8fb8c9', bat:'#a98bd0', ghost:'#f4f6fb',
   flameDemon:'#2b2b33', mage:'#5b4a8a', cloudEnemy:'#c9cdd6', reaper:'#1f2028',
   fireball:'#ff8a1e', magicBolt:'#7cc7ff', bgHills:'#9fd07f', bgBushes:'#7cbf6a',
@@ -95,11 +99,14 @@ const SAVE = {
   cleared1: localStorage.getItem('nekoCleared1')==='1',   // ステージ1クリア済み
   cleared2: localStorage.getItem('nekoCleared2')==='1',   // ステージ2クリア済み
   cleared3: localStorage.getItem('nekoCleared3')==='1',   // ステージ3クリア済み
+  cleared4: localStorage.getItem('nekoCleared4')==='1',   // ステージ4クリア済み
   weapon: localStorage.getItem('nekoWeapon')||'sword',    // 装備中の武器
   weapons: (()=>{ try{ const a=JSON.parse(localStorage.getItem('nekoWeapons')||'["sword"]'); return Array.isArray(a)&&a.length?a:['sword']; }catch(e){ return ['sword']; } })(),
   boots: localStorage.getItem('nekoBoots')==='1',                                  // ジャンプ靴（高ジャンプ＋二段ジャンプ）を持っている
   helmets: Math.max(0, parseInt(localStorage.getItem('nekoHelmets')||'0',10)||0),  // 使いすてヘルメットの在庫数（もっている総数）
-  helmetOn: localStorage.getItem('nekoHelmetOn')==='1'                             // いまヘルメットを1つ装備しているか（同時に装備できるのは1つだけ）
+  helmetOn: localStorage.getItem('nekoHelmetOn')==='1',                            // いまヘルメットを1つ装備しているか（同時に装備できるのは1つだけ）
+  bombs: Math.max(0, parseInt(localStorage.getItem('nekoBombs')||'0',10)||0),      // 使いすて爆弾の在庫数（もっている総数）
+  bombOn: localStorage.getItem('nekoBombOn')==='1'                                 // いま爆弾を1つ装備しているか（ステージには1つだけ持ち込める）
 };
 function saveData(){
   localStorage.setItem('nekoStars', String(SAVE.stars));
@@ -108,13 +115,17 @@ function saveData(){
   localStorage.setItem('nekoCleared1', SAVE.cleared1?'1':'0');
   localStorage.setItem('nekoCleared2', SAVE.cleared2?'1':'0');
   localStorage.setItem('nekoCleared3', SAVE.cleared3?'1':'0');
+  localStorage.setItem('nekoCleared4', SAVE.cleared4?'1':'0');
   localStorage.setItem('nekoWeapon', SAVE.weapon);
   localStorage.setItem('nekoWeapons', JSON.stringify(SAVE.weapons));
   localStorage.setItem('nekoBoots', SAVE.boots?'1':'0');
   localStorage.setItem('nekoHelmets', String(SAVE.helmets));
   localStorage.setItem('nekoHelmetOn', SAVE.helmetOn?'1':'0');
+  localStorage.setItem('nekoBombs', String(SAVE.bombs));
+  localStorage.setItem('nekoBombOn', SAVE.bombOn?'1':'0');
 }
 if(SAVE.helmetOn && SAVE.helmets<=0) SAVE.helmetOn=false;   // 在庫ゼロなら装備解除
+if(SAVE.bombOn && SAVE.bombs<=0) SAVE.bombOn=false;         // 在庫ゼロなら装備解除
 
 // ---------- プレイアブル・キャラクター定義 ----------
 const CHARS = {
@@ -151,6 +162,7 @@ if(!weaponOwned(SAVE.weapon)) SAVE.weapon='sword';
 function curWeapon(){ return WEAPONS[SAVE.weapon]||WEAPONS.sword; }
 function bootsEquipped(){ return !!SAVE.boots; }   // ジャンプ靴：高ジャンプ＋二段ジャンプ
 function helmetWorn(){ return SAVE.helmetOn && SAVE.helmets>0; }   // ヘルメットを1つ装備中か
+function bombEquipped(){ return SAVE.bombOn && SAVE.bombs>0; }     // 爆弾を1つ装備中か（ステージに持ち込める）
 
 // スプライト描画（ロード済みなら画像、無ければ角丸プレースホルダ）
 function drawSprite(key,x,y,w,h,flip){
@@ -204,6 +216,7 @@ addEventListener('keydown',e=>{
   if(e.code==='KeyP'){ togglePause(); }
   if(e.code==='KeyM'){ toggleMuteUI(); return; }
   if(e.code==='KeyR'){ retry(); return; }
+  if(e.code==='KeyB'){ tryBomb(); return; }        // 爆弾を使う
   const k=KEYMAP[e.code]; if(!k) return; e.preventDefault();
   if(k==='jump' && !key.jump) jumpBuf=JUMP_BUF;
   if(k==='atk' && !key.atk) tryAttack();
@@ -217,8 +230,9 @@ function bindTouch(){
     const on=e=>{ e.preventDefault();
       if(k==='jump'){ if(!key.jump) jumpBuf=JUMP_BUF; key.jump=true; }
       else if(k==='atk'){ if(!key.atk) tryAttack(); key.atk=true; }
+      else if(k==='bomb'){ tryBomb(); }
       else key[k]=true; };
-    const off=e=>{ e.preventDefault(); key[k]=false; };
+    const off=e=>{ e.preventDefault(); if(k!=='bomb') key[k]=false; };
     b.addEventListener('touchstart',on,{passive:false});
     b.addEventListener('touchend',off,{passive:false});
     b.addEventListener('touchcancel',off,{passive:false});
@@ -226,14 +240,45 @@ function bindTouch(){
     b.addEventListener('mouseleave',off);
   });
   if('ontouchstart' in window) document.getElementById('touch').style.display='block';
+  updateBombBtn();
+}
+// 💣ボタンは「爆弾を装備しているとき」だけ表示する
+function updateBombBtn(){
+  const b=document.getElementById('bBomb');
+  if(b) b.style.display = bombEquipped() ? 'flex' : 'none';
+}
+// 爆弾を使う：まわりの敵に「2回分ダメージ」の爆発。1個つかうと消える（ステージ中はもう持てない）。
+function tryBomb(){
+  if(state!=='play' || !pl || pl.dead) return;
+  if(!bombEquipped()) return;
+  SAVE.bombs=Math.max(0, SAVE.bombs-1); SAVE.bombOn=false; saveData(); updateBombBtn();
+  const cx=pl.x+pl.w/2, cy=pl.y+pl.h/2;
+  pl.inv=Math.max(pl.inv,1.0);   // 爆発の瞬間〜直後は自分は無敵（爆弾で自分は傷つかない）
+  // 効果はんい内の敵すべてに2ダメージ（ボスにも当たる）。生き残りは外へふきとばして接触を防ぐ。
+  enemies.forEach(e=>{ if(e.dead) return;
+    const ex=e.x+e.w/2, ey=e.y+e.h/2;
+    if(Math.hypot(ex-cx,ey-cy) <= BOMB_RANGE + Math.max(e.w,e.h)/2){
+      const away = ex<cx?-1:1;
+      damageEnemy(e, BOMB_DMG, away);
+      if(!e.dead && !e.boss){ e.x += away*40; if(e.charging) e.charging=false; if(e.vx) e.vx=-e.vx*0.4; }
+    }
+  });
+  // 爆発エフェクト（オレンジの粒＋白リング＋画面ゆれ）
+  shake=Math.max(shake,16); snd('boss');
+  bombFx.push({x:cx,y:cy,r:10,life:0.45,max:0.45});
+  for(let i=0;i<26;i++){ const a=(Math.PI*2*i)/26, sp=180+Math.random()*260;
+    particles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-60,life:0.6+Math.random()*0.3,
+      c:['#ff6b1a','#ffd23f','#ff3b3b','#ffffff'][i%4],r:5}); }
 }
 
 // ---------- シーン／レベル定義 ----------
 // solids: 実体の矩形 {x,y,w,h}。地面のすきま（穴）は矩形を置かないことで表現。
 let solids=[], enemies=[], items=[], projectiles=[], particles=[], floaters=[];
+let bombFx=[];                             // 爆弾の爆発リング演出
 let pshots=[];                             // プレイヤーの弾（銃）
 let decor=[], gates=[];                    // decor=装飾スプライト, gates=移動口/ショップ
 let goal=null, boss=null, npc=null, levelW=0;
+let vertical=false;                        // 縦スクロールのステージ（ステージ4）か
 let scene='village';                       // 'village' | 'stage'
 let stageNum=1;                            // 1 | 2（ステージ番号＝難易度）
 let smith=null, hint='';                   // かじ屋ゾーン, 画面下ヒント
@@ -243,13 +288,13 @@ function ex(){ return stageNum>=3; }        // ステージ3はさらに強化�
 function G(x,w,y=GROUND_Y){ solids.push({x,y,w,h:WORLD_H-y+80,ground:true}); }
 function P(x,y,w){ solids.push({x,y,w,h:22,plat:true}); } // 浮遊足場
 function clearScene(){ solids=[]; enemies=[]; items=[]; projectiles=[]; particles=[]; pshots=[];
-  floaters=[]; decor=[]; gates=[]; boss=null; goal=null; smith=null; hint=''; }
+  floaters=[]; decor=[]; gates=[]; boss=null; goal=null; smith=null; hint=''; bombFx=[]; }
 
 // ---- むら（拠点シーン）----
 function buildVillage(){
-  clearScene(); scene='village';
-  G(-300, 3400);                 // 平らな草地
-  levelW = 3050;
+  clearScene(); scene='village'; vertical=false;
+  G(-300, 3900);                 // 平らな草地
+  levelW = 3550;
   // 装飾（家2軒・かじ屋・丘）※滝は削除
   decor.push({sprite:'villageHouse', x:180, y:GROUND_Y-300, w:245, h:300});   // 大きい家
   decor.push({sprite:'villageHouse', x:470, y:GROUND_Y-215, w:176, h:215});   // 小さい家
@@ -262,12 +307,15 @@ function buildVillage(){
     label:'ぼうけん2へ', need:'cleared1', lockMsg:'ステージ1を クリアすると あそべる！'});
   gates.push({x:2800, y:GROUND_Y-160, w:80, h:160, to:'stage', stage:3, spawnX:120,
     label:'ぼうけん3へ', need:'cleared2', lockMsg:'ステージ2を クリアすると あそべる！'});
+  gates.push({x:3200, y:GROUND_Y-160, w:80, h:160, to:'stage', stage:4, spawnX:700,
+    label:'ぼうけん4へ（上へ）', need:'cleared3', lockMsg:'ステージ3を クリアすると あそべる！'});
   // 装飾雲（丘のふもと〜青空に浮かべる）
   for(let i=0;i<7;i++) floaters.push({x:i*380+120, y:210+Math.random()*90, w:130+Math.random()*60});
 }
 
 function buildStage(n){
-  clearScene(); scene='stage'; stageNum=(n===3?3:(n===2?2:1));
+  if(n===4){ buildStage4(); return; }
+  clearScene(); scene='stage'; vertical=false; stageNum=(n===3?3:(n===2?2:1));
   const S2 = hard();
   const starRow=(x,c,y=GROUND_Y-70,dx=70)=>{ for(let i=0;i<c;i++) items.push({t:'star',x:x+i*dx,y,r:20,got:false,bob:Math.random()*6}); };
 
@@ -379,6 +427,61 @@ function buildStage(n){
   npc=null;
 }
 
+// ===== ステージ4：上へのぼる縦スクロール。落ちると全HP。敵はステージ3と同じ強さ・数。 =====
+function buildStage4(){
+  clearScene(); scene='stage'; vertical=true; stageNum=4;
+  const colX=700, FW=1000;
+  // 下のスタート地面
+  G(colX-560, 1120, GROUND_Y);            // x[140,1260]
+  // 横に長い足場（床）を上へ。ワンウェイなので下から通り抜け、上に着地してのぼる。
+  const Y=[];
+  { let yy=350; for(let i=0;i<17;i++){ P(colX-FW/2, yy, FW); Y.push(yy); yy-=120; } }  // 17段・120px間隔・横長
+  const bossY=-1710;
+  P(colX-FW/2, bossY, FW);                // ボス＆ゴールの床（横長）
+  levelW = 1400;
+
+  // 星（何段かの上）・回復リンゴ・無敵キャンディ
+  [0,2,4,6,8,10,12,14,16].forEach(i=> items.push({t:'star',x:colX+((i%2)?150:-150),y:Y[i]-40,r:20,got:false,bob:Math.random()*6}));
+  items.push({t:'apple', x:colX, y:Y[8]-44,  r:26, got:false, bob:0});
+  items.push({t:'candy', x:colX, y:Y[13]-44, r:28, got:false, bob:0});
+
+  // ==== 敵（数少なめ・攻撃は横方向のみ・下の段はならしで敵なし）====
+  // サメ（横に巡回＆突進）×2
+  spawn('shark', colX-260,'ground',{patrol:[colX-520,colX-150], gy:GROUND_Y});   // スタート地点(700)には来ない
+  spawn('shark', colX+120,'ground',{patrol:[colX-300,colX+430], gy:Y[10]});
+  // 炎の悪魔（横に火の玉）×3
+  spawn('flameDemon', colX+250,'ground',{gy:Y[4]});
+  spawn('flameDemon', colX-250,'ground',{gy:Y[8]});
+  spawn('flameDemon', colX+250,'ground',{gy:Y[13]});
+  // 魔法使い（横に魔法弾）×2
+  spawn('mage', colX-250,'ground',{hp:5, gy:Y[6]});
+  spawn('mage', colX+250,'ground',{hp:5, gy:Y[12]});
+  // おばけ（横に追いかけ）×2
+  spawn('ghost', colX+220,'air',{y:Y[5]-58});
+  spawn('ghost', colX-220,'air',{y:Y[11]-58});
+  // コウモリ（体当たり・上下ゆれ小さめ）×3
+  spawn('bat', colX-170,'air',{cx:colX-170,range:130,amp:26,y:Y[3]-64});
+  spawn('bat', colX+170,'air',{cx:colX+170,range:130,amp:26,y:Y[9]-64});
+  spawn('bat', colX-170,'air',{cx:colX-170,range:130,amp:26,y:Y[14]-64});
+
+  // ==== ボス（死神・ステージ3と同じ強さ）====
+  boss = mkEnemy('reaper', colX-75, bossY-170, 150,170);
+  boss.hp=22; boss.maxhp=22; boss.boss=true; boss.state='idle'; boss.t=1.2;
+  boss.arena=[colX-400, colX+400]; boss.active=false; boss.face=-1;
+  boss.ds=240; boss.dal='bottom';
+  boss.vertical=true; boss.floorY=bossY; boss.actY=bossY+380;   // 上に近づくと起きる／足場が床
+  enemies.push(boss);
+
+  // ==== ゴール看板（ボス撃破で有効化）→ むらへ帰るとクリア ====
+  goal = {x:colX+230, y:bossY-150, w:90, h:150, active:false};
+  // スタートの「↑」案内看板（装飾）
+  decor.push({sprite:'signpost', x:colX-360, y:GROUND_Y-150, w:110, h:150});
+
+  // 装飾雲（縦に散らす）
+  for(let i=0;i<22;i++) floaters.push({x:colX-320+Math.random()*640, y:GROUND_Y-60 - i*120 - Math.random()*70, w:120+Math.random()*80});
+  npc=null;
+}
+
 function spawn(type,x,mode,opt){ enemies.push(mkEnemyByType(type,x,mode,opt)); }
 function mkEnemy(type,x,y,w,h){ return {type,x,y,w,h,vx:0,vy:0,dead:false,hp:1,face:-1,anim:Math.random()*6}; }
 function mkEnemyByType(type,x,mode,opt){
@@ -388,7 +491,8 @@ function mkEnemyByType(type,x,mode,opt){
   const sMul=X?1.3:1;              // 速度倍率（ステージ3）
   const cMul=X?0.7:1;              // クールダウン短縮（ステージ3）
   let e;
-  if(type==='shark'){ e=mkEnemy(type,x,GROUND_Y-70,110,72); e.mode='ground';
+  const gy=opt.gy||GROUND_Y;      // 地上敵の足元の高さ（縦ステージでは足場の上に乗せる）
+  if(type==='shark'){ e=mkEnemy(type,x,gy-70,110,72); e.mode='ground';
     e.patrol=opt.patrol||[x-300,x+300]; e.spd=(S2?140:100)*sMul; e.chargeSpd=(S2?430:300)*sMul; e.charging=false; e.vx=-e.spd;
     e.ds=124; e.dal='bottom'; }
   else if(type==='bat'){ e=mkEnemy(type,x,opt.y||GROUND_Y-260,74,64); e.mode='air';
@@ -396,9 +500,9 @@ function mkEnemyByType(type,x,mode,opt){
     e.phSpd=(S2?2.9:2)*(X?1.25:1); e.ds=92; e.dal='center'; }
   else if(type==='ghost'){ e=mkEnemy(type,x,opt.y||GROUND_Y-200,78,84); e.mode='chase'; e.spd=(S2?115:70)*sMul; e.ph=Math.random()*6; e.baseY=opt.y||GROUND_Y-200;
     e.ds=100; e.dal='center'; }
-  else if(type==='flameDemon'){ e=mkEnemy(type,x,GROUND_Y-96,86,96); e.mode='turret'; e.cd=((S2?1.0:1.6)+Math.random()*(S2?0.5:1))*cMul;
+  else if(type==='flameDemon'){ e=mkEnemy(type,x,gy-96,86,96); e.mode='turret'; e.cd=((S2?1.0:1.6)+Math.random()*(S2?0.5:1))*cMul;
     e.ds=116; e.dal='bottom'; }
-  else if(type==='mage'){ e=mkEnemy(type,x,GROUND_Y-104,84,104); e.mode='mage'; e.hp=opt.hp||(X?5:(S2?4:2)); e.maxhp=e.hp; e.cd=(S2?1.1:1.8)*cMul; e.step=0;
+  else if(type==='mage'){ e=mkEnemy(type,x,gy-104,84,104); e.mode='mage'; e.hp=opt.hp||(X?5:(S2?4:2)); e.maxhp=e.hp; e.cd=(S2?1.1:1.8)*cMul; e.step=0;
     e.ds=120; e.dal='bottom'; }
   else if(type==='cloudEnemy'){ e=mkEnemy(type,opt.x||x,opt.y||120,120,80); e.mode='cloud'; e.cd=(opt.drop||2.4)*cMul; e.drift=20;
     e.ds=120; e.dal='center'; }
@@ -410,7 +514,7 @@ let pl;
 function newPlayer(){
   return { x:120,y:GROUND_Y-96,w:66,h:96,vx:0,vy:0,face:1,onGround:false,coyote:0,
     hp:3,maxhp:3,inv:0,invPower:0,atk:0,atkCd:0, atkHits:new Set(), walkT:0, dead:false, spawnX:120, spawnY:GROUND_Y-96,
-    guarding:false, guardFlash:0,
+    guarding:false, guardFlash:0, guardAnim:0,
     airJumps:0, helmetHp: (SAVE.helmetOn && SAVE.helmets>0)?HELMET_MAX:0 };
 }
 
@@ -434,7 +538,7 @@ function fireBullet(w){
 
 // ---------- ゲーム状態 ----------
 let state='title';   // title|play|pause|clear|over
-let score=0, cam=0, time=0, shake=0, flashGoal=0;
+let score=0, cam=0, camY=0, time=0, shake=0, flashGoal=0;
 
 // シーンを読み込み、プレイヤーを配置。keepHp=前シーンのHPを引き継ぐ
 function loadScene(name, spawnX, keepHp, stageN){
@@ -443,6 +547,8 @@ function loadScene(name, spawnX, keepHp, stageN){
   pl=newPlayer(); pl.x=spawnX; pl.spawnX=spawnX; pl.spawnY=pl.y; pl.hp=hp; pl.maxhp=3;
   cam=Math.max(0,Math.min(Math.max(0,levelW-VW), spawnX-VW*0.38));
   if(!isFinite(cam)) cam=0;
+  camY=0;
+  if(vertical){ const wvh=cv.height/scale; camY = pl.y+pl.h/2 - wvh*0.62; if(!isFinite(camY)) camY=0; }
   shake=0; time=0;
   state='play'; showOverlay(false); music(true);
 }
@@ -452,7 +558,7 @@ function resetGame(){        // タイトルから：むらへ
 function startGame(){ resetGame(); }
 function retry(){           // 死んだシーンをやり直し（ステージならそのステージを最初から）
   unlockAudio();
-  if(scene==='stage') loadScene('stage', 120, false, stageNum);
+  if(scene==='stage') loadScene('stage', stageNum===4?700:120, false, stageNum);
   else loadScene('village', 120, false);
 }
 // ゲート移動
@@ -490,9 +596,20 @@ function update(dt){
   updateItems(dt);
   updateParticles(dt);
   // カメラ（非有限値になったら復帰）
-  const clamped=Math.max(0, Math.min(Math.max(0,levelW-VW), pl.x+pl.w/2-VW*0.38));
-  if(!isFinite(cam)) cam = isFinite(clamped)?clamped:0;
-  else if(isFinite(clamped)) cam += (clamped-cam)*Math.min(1,dt*8);
+  if(vertical){
+    // 横：プレイヤーを中央に
+    const cx=Math.max(0, Math.min(Math.max(0,levelW-VW), pl.x+pl.w/2-VW*0.5));
+    if(!isFinite(cam)) cam = isFinite(cx)?cx:0; else if(isFinite(cx)) cam += (cx-cam)*Math.min(1,dt*8);
+    // 縦：上へだけ追従（登った高さは保つ＝落ちると画面外へ）
+    const wvh=cv.height/scale;
+    const cyTgt=pl.y+pl.h/2 - wvh*0.62;
+    if(isFinite(cyTgt) && cyTgt<camY) camY += (cyTgt-camY)*Math.min(1,dt*6);
+    if(!isFinite(camY)) camY=0;
+  } else {
+    const clamped=Math.max(0, Math.min(Math.max(0,levelW-VW), pl.x+pl.w/2-VW*0.38));
+    if(!isFinite(cam)) cam = isFinite(clamped)?clamped:0;
+    else if(isFinite(clamped)) cam += (clamped-cam)*Math.min(1,dt*8);
+  }
   if(shake>0) shake=Math.max(0,shake-dt*60);
   if(flashGoal>0) flashGoal-=dt;
   // ゴール判定（死神撃破後 → むらへ帰ってクリア）
@@ -502,14 +619,21 @@ function update(dt){
   if(scene==='village' && smith && !pl.dead && rectHit(pl,smith)) hint='↑ でショップ';
   if(!pl.dead) for(const g of gates){ if(rectHit(pl,g)){
     hint = (g.need && !SAVE[g.need]) ? g.lockMsg : ('↑ '+g.label); break; } }
-  // 落下（穴）：ハートを1つ失い、直前の安全な地面に復帰。0になったらゲームオーバー
-  if(!pl.dead && pl.y>WORLD_H+120){ fallDeath(); }
+  // 落下：横ステージ＝ハート1つ失って復帰。縦ステージ＝高い所から落ちたら全HP（即ゲームオーバー）
+  if(!pl.dead){
+    if(vertical){ const wvh=cv.height/scale; if(pl.y > camY + wvh + 40) fallDeathAll(); }
+    else if(pl.y>WORLD_H+120){ fallDeath(); }
+  }
 }
 
 function fallDeath(){
   pl.hp-=1; shake=12; snd('hurt');
   if(pl.hp<=0){ pl.hp=0; pl.dead=true; pl.vy=0; setTimeout(gameOver,900); }
   else { respawn(); }
+}
+// 縦ステージ：高い所から落ちたらHPをすべて失う（即ゲームオーバー）
+function fallDeathAll(){
+  pl.hp=0; pl.dead=true; pl.vy=0; shake=14; snd('hurt'); setTimeout(gameOver,900);
 }
 
 // --- プレイヤー物理 ---
@@ -553,6 +677,7 @@ function updatePlayer(dt){
   if(pl.invPower>0){ pl.invPower-=dt; if(pl.invPower<0) pl.invPower=0; }
   if(pl.atk>0) pl.atk-=dt;
   if(pl.atkCd>0) pl.atkCd-=dt;
+  pl.guardAnim += ((pl.guarding?1:0)-pl.guardAnim)*Math.min(1,dt*16);   // 盾の構えをなめらかに
 
   // 攻撃ヒット（近接武器。1回の攻撃で各敵に1ヒット）
   const w=curWeapon();
@@ -604,6 +729,13 @@ function moveAndCollide(o,dt){
 }
 
 // --- 敵 ---
+// 敵が画面に映っているか（映っている敵だけが攻撃する）。縦ステージは上下も見る。
+function enemyOnScreen(e){
+  const m=30;
+  if(e.x+e.w < cam-m || e.x > cam+VW+m) return false;
+  if(vertical){ const wvh=cv.height/scale; if(e.y+e.h < camY-m || e.y > camY+wvh+m) return false; }
+  return true;
+}
 function updateEnemies(dt){
   enemies.forEach(e=>{
     if(e.dead) return;
@@ -627,20 +759,23 @@ function updateEnemies(dt){
         e.y=e.baseY+Math.sin(e.ph)*14; e.face=dx<0?-1:1; break; }
       case 'turret': { // 炎の悪魔：プレイヤーを狙って火の玉
         e.face=pl.x<e.x?-1:1;
-        e.cd-=dt; if(e.cd<=0 && Math.abs(pl.x-e.x)<640){ e.cd=(hard()?1.2:1.9)*(ex()?0.75:1);
+        e.cd-=dt; if(e.cd<=0 && enemyOnScreen(e) && Math.abs(pl.x-e.x)<640){ e.cd=(hard()?1.2:1.9)*(ex()?0.75:1);
           const sp=(hard()?430:330)*(ex()?1.2:1), sx=e.x+e.w/2, sy=e.y+e.h*0.35;
-          const dx=(pl.x+pl.w/2)-sx, dy=(pl.y+pl.h*0.4)-sy, L=Math.hypot(dx,dy)||1;
-          shoot('fireball', sx, sy, dx/L*sp, dy/L*sp); }
+          if(vertical){ shoot('fireball', sx, sy, (pl.x<e.x?-1:1)*sp, 0, true); }   // 縦ステージ：横だけに撃つ
+          else { const dx=(pl.x+pl.w/2)-sx, dy=(pl.y+pl.h*0.4)-sy, L=Math.hypot(dx,dy)||1;
+            shoot('fireball', sx, sy, dx/L*sp, dy/L*sp); } }
         break; }
       case 'mage': { // 魔法使い：弾＋小移動
         e.cd-=dt; e.face=pl.x<e.x?-1:1;
-        if(e.cd<=0 && Math.abs(pl.x-e.x)<700){ e.cd=(hard()?1.0:1.6)*(ex()?0.8:1);
-          const sp=(hard()?360:280)*(ex()?1.2:1), dx=pl.x-e.x, dy=(pl.y+20)-(e.y+20), L=Math.hypot(dx,dy)||1;
-          shoot('magicBolt',e.x+e.w/2,e.y+e.h*0.3, dx/L*sp, dy/L*sp); }
+        if(e.cd<=0 && enemyOnScreen(e) && Math.abs(pl.x-e.x)<700){ e.cd=(hard()?1.0:1.6)*(ex()?0.8:1);
+          const sp=(hard()?360:280)*(ex()?1.2:1);
+          if(vertical){ shoot('magicBolt',e.x+e.w/2,e.y+e.h*0.3, (pl.x<e.x?-1:1)*sp, 0, true); }   // 縦ステージ：横だけ
+          else { const dx=pl.x-e.x, dy=(pl.y+20)-(e.y+20), L=Math.hypot(dx,dy)||1;
+            shoot('magicBolt',e.x+e.w/2,e.y+e.h*0.3, dx/L*sp, dy/L*sp); } }
         break; }
       case 'cloud': { // 雨雲：漂って稲妻
         e.x+=Math.sin(time*0.5)*e.drift*dt*10;
-        e.cd-=dt; if(e.cd<=0 && Math.abs(pl.x-e.x)<(ex()?440:(hard()?380:300))){ e.cd=(hard()?1.8:2.6)*(ex()?0.75:1);
+        e.cd-=dt; if(e.cd<=0 && enemyOnScreen(e) && Math.abs(pl.x-e.x)<(ex()?440:(hard()?380:300))){ e.cd=(hard()?1.8:2.6)*(ex()?0.75:1);
           projectiles.push({t:'lightning',x:e.x+e.w/2-8,y:e.y+e.h,w:16,h:520,life:0.5,warn:ex()?0.2:(hard()?0.28:0.35)}); }
         break; }
     }
@@ -662,12 +797,12 @@ function updateEnemies(dt){
 
 function updateBoss(e,dt){
   const S2=hard(), X=ex();
-  if(!e.active){ if(pl.x>e.arena[0]+250){ e.active=true; e.t=1; } else return; }
+  if(!e.active){ if(e.vertical ? (pl.y < e.actY) : (pl.x>e.arena[0]+250)){ e.active=true; e.t=1; } else return; }
   e.face=pl.x<e.x?-1:1;
   e.t-=dt;
   switch(e.state){
     case 'idle':
-      e.vx*=0.9; e.y += ((GROUND_Y-e.h)-e.y)*Math.min(1,dt*4);
+      e.vx*=0.9; e.y += (((e.floorY||GROUND_Y)-e.h)-e.y)*Math.min(1,dt*4);
       if(e.t<=0){ e.state=(Math.random()<(X?0.65:0.6)?'dash':'summon'); e.t=(e.state==='dash')?(X?0.25:(S2?0.35:0.5)):(X?0.55:(S2?0.7:0.9)); }
       break;
     case 'dash':
@@ -678,10 +813,11 @@ function updateBoss(e,dt){
       break;
     case 'summon':
       if(e.t<=0){
-        enemies.push(mkEnemyByType('bat',e.x,'air',{cx:e.x,range:120,amp:60,y:GROUND_Y-240}));
-        enemies.push(mkEnemyByType('ghost',e.x+120,'air',{y:GROUND_Y-200}));
-        if(S2){ enemies.push(mkEnemyByType('bat',e.x-120,'air',{cx:e.x-120,range:140,amp:70,y:GROUND_Y-280})); }
-        if(X){ enemies.push(mkEnemyByType('ghost',e.x-140,'air',{y:GROUND_Y-250})); }
+        const by=(e.floorY||GROUND_Y);   // ボスの足元を基準に召喚（縦ステージ対応）
+        enemies.push(mkEnemyByType('bat',e.x,'air',{cx:e.x,range:120,amp:60,y:by-240}));
+        enemies.push(mkEnemyByType('ghost',e.x+120,'air',{y:by-200}));
+        if(S2){ enemies.push(mkEnemyByType('bat',e.x-120,'air',{cx:e.x-120,range:140,amp:70,y:by-280})); }
+        if(X){ enemies.push(mkEnemyByType('ghost',e.x-140,'air',{y:by-250})); }
         e.state='idle'; e.t=X?0.6:(S2?0.8:1.1);
       }
       break;
@@ -699,18 +835,19 @@ function damageEnemy(e,dmg,dir){
 function bossDefeated(){
   shake=18; flashGoal=2.5; snd('boss');
   if(goal) goal.active=true;
-  for(let i=0;i<40;i++) particles.push({x:goal?goal.x:8800,y:GROUND_Y-100,
+  const fx=goal?goal.x:8800, fy=goal?goal.y+goal.h*0.5:GROUND_Y-100;
+  for(let i=0;i<40;i++) particles.push({x:fx,y:fy,
     vx:(Math.random()-.5)*300,vy:-Math.random()*400-100,life:1.2,c:'#ffd23f',r:5});
 }
 
 // --- 弾 ---
-function shoot(kind,x,y,vx,vy){ projectiles.push({t:kind,x:x-14,y:y-14,w:28,h:28,vx,vy,life:4}); }
+function shoot(kind,x,y,vx,vy,flat){ projectiles.push({t:kind,x:x-14,y:y-14,w:28,h:28,vx,vy,life:4,flat:!!flat}); }
 function updateProjectiles(dt){
   projectiles.forEach(p=>{
     if(p.t==='lightning'){ p.life-=dt; if(p.warn>0){p.warn-=dt;}
       else if(pl.inv<=0 && rectHit(pl,p)) hurt(1,0,null,true);  // 雷は上から＝盾で防げない
       return; }
-    p.life-=dt; if(p.t==='fireball') p.vy+=GRAV*0.06*dt;  // ほぼ直進（軽い重力）
+    p.life-=dt; if(p.t==='fireball' && !p.flat) p.vy+=GRAV*0.06*dt;  // ほぼ直進（軽い重力）。flat＝横だけ（重力なし）
     p.x+=p.vx*dt; p.y+=p.vy*dt;
     if(pl.inv<=0 && overlap(pl,{x:p.x,y:p.y,w:p.w,h:p.h})){ hurt(1,p.vx>0?1:-1, p.x+p.w/2); p.life=0; }
     for(const s of solids){ if(!s.plat && rectHit(p,s)){ p.life=0; break; } }
@@ -733,6 +870,8 @@ function updateItems(dt){ items.forEach(it=>{ it.bob=(it.bob||0)+dt*3; }); }
 function updateParticles(dt){
   particles.forEach(p=>{ p.life-=dt; p.vy+=GRAV*0.5*dt; p.x+=p.vx*dt; p.y+=p.vy*dt; });
   particles=particles.filter(p=>p.life>0);
+  bombFx.forEach(f=>{ f.life-=dt; f.r += (BOMB_RANGE - f.r)*Math.min(1,dt*12); });
+  bombFx=bombFx.filter(f=>f.life>0);
 }
 
 // --- 被弾 ---
@@ -748,12 +887,9 @@ function hurt(dmg,dir,srcX,unblock){
   if(pl.hp<=0){ pl.hp=0; pl.dead=true; setTimeout(gameOver,900); }
   return false;
 }
-// 盾は「向いている方向」からの攻撃を防ぐ
+// ガード中は（防げる攻撃なら）どの向きからでも防ぐ。※上からの雷など unblock は hurt() 側で除外済み。
 function guardBlocks(srcX){
-  if(!pl.guarding) return false;
-  if(srcX==null) return true;   // 方向不明はひとまず防げる
-  const cx=pl.x+pl.w/2;
-  return pl.face>0 ? (srcX >= cx-12) : (srcX <= cx+12);
+  return !!pl.guarding;
 }
 function onGuardBlock(srcX){
   pl.guardFlash=0.18; pl.inv=0.12; shake=4; snd('guard');
@@ -781,7 +917,8 @@ function gameOver(){ if(state!=='play') return; state='over'; music(false); snd(
 let lastCleared=1;
 function win(){ if(state!=='play') return; music(false); snd('clear');
   lastCleared=stageNum;
-  if(stageNum===1) SAVE.cleared1=true; else if(stageNum===2) SAVE.cleared2=true; else SAVE.cleared3=true; saveData();
+  if(stageNum===1) SAVE.cleared1=true; else if(stageNum===2) SAVE.cleared2=true;
+  else if(stageNum===3) SAVE.cleared3=true; else if(stageNum===4) SAVE.cleared4=true; saveData();
   loadScene('village', 2120, true);   // むらに帰還
   state='clear'; showOverlay(true,'clear'); }
 function togglePause(){ if(state==='play'){ state='pause'; music(false); showOverlay(true,'pause'); }
@@ -818,7 +955,8 @@ function render(){
 
 function layer(factor){ // カメラ視差変換をセット（originYで上下センタリング）
   const jx = shake>0?(Math.random()-.5)*shake:0, jy = shake>0?(Math.random()-.5)*shake:0;
-  ctx.setTransform(scale,0,0,scale, -cam*factor*scale + jx, originY + jy);
+  const cyOff = vertical ? camY*factor*scale : 0;   // 縦カメラ（ステージ4のみ）
+  ctx.setTransform(scale,0,0,scale, -cam*factor*scale + jx, originY - cyOff + jy);
 }
 
 function drawParallax(){
@@ -827,6 +965,9 @@ function drawParallax(){
     drawVillageHills();
     // 雲（青空側）
     layer(0.45); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
+  } else if(vertical){
+    // 縦ステージ：雲だけを視差でうかべる（縦に流れる）
+    layer(0.5); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
   } else {
     layer(0.25); tileX('bgHills', WORLD_H-230, 512,256, 0.25);
     layer(0.4); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
@@ -945,6 +1086,10 @@ function drawWorld(){
   // パーティクル
   particles.forEach(p=>{ ctx.globalAlpha=Math.max(0,Math.min(1,p.life*2)); ctx.fillStyle=p.c;
     ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); ctx.fill(); });
+  // 爆弾の爆発リング（白→オレンジのひろがる輪）
+  bombFx.forEach(f=>{ ctx.globalAlpha=Math.max(0,f.life/f.max)*0.8;
+    ctx.lineWidth=8; ctx.strokeStyle='#ffd23f'; ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,7); ctx.stroke();
+    ctx.lineWidth=4; ctx.strokeStyle='#ff6b1a'; ctx.beginPath(); ctx.arc(f.x,f.y,f.r*0.7,0,7); ctx.stroke(); });
   ctx.globalAlpha=1;
 }
 
@@ -982,6 +1127,7 @@ function drawPlayer(){
     return;
   }
   drawSpriteSquare(key, cx, refY, ds, 'bottom', pl.face<0);
+  drawKnightGear();                       // ネコ/イヌ騎士の剣・盾（攻撃/ガードで動く）
   drawHelmetOnHead(cx, refY - ds*FEET, ds, pl.face<0);
   drawWeaponInHand();
   // 長いクールダウンの武器（弓矢）は、頭の上にリロードゲージを出す
@@ -1003,6 +1149,36 @@ function drawHelmetOnHead(cx, spriteTop, ds, flip){
   else { ctx.fillStyle='#e8c9a8'; ctx.strokeStyle='#4a3728'; ctx.lineWidth=3;
     ctx.beginPath(); ctx.arc(0,hh*0.1,hw*0.42,Math.PI,0); ctx.fill(); ctx.stroke(); }
   ctx.restore();
+}
+// ネコ/イヌの騎士だけ：剣と盾を体とは別に描いて動かす。
+// 盾はガードで前へ構え、剣は攻撃で振り下ろす（「けん」装備のときだけ剣を表示）。
+function drawKnightGear(){
+  if(!pl || pl.dead) return;
+  if(SAVE.char!=='cat' && SAVE.char!=='dog') return;
+  const dir=pl.face, w=pl.w, ga=Math.max(0,Math.min(1,pl.guardAnim||0));
+  const cx=pl.x+w/2;
+  // 剣：ガード中は後ろに下げて構える（＝攻撃に見えない）。攻撃(pl.atk)のときだけ前へ振り下ろす。
+  //     盾より先に描いて、ガード時は盾の後ろに隠れるようにする。
+  if(SAVE.weapon==='sword' && IMG.knightSword){
+    const prog = pl.atk>0 ? (0.22-Math.max(0,pl.atk))/0.22 : 0;   // 0→1
+    const hx=cx + dir*w*0.42, hy=pl.y+pl.h*0.56;   // 右手の位置
+    const dw=w*0.5, dh=w*0.92;
+    ctx.save(); ctx.translate(hx,hy); if(dir<0) ctx.scale(-1,1);
+    ctx.rotate(-0.1 + prog*1.4 - ga*0.9);          // 通常は立て構え／攻撃で振り下ろし／ガードは後ろへ下げる
+    ctx.drawImage(IMG.knightSword,-dw*0.5,-dh*0.80,dw,dh);  // 柄(下)を軸に、刃は上へ
+    ctx.restore();
+  }
+  // 盾：ふだんは左手（体の後ろ寄り・低い）。ガードすると体の前へ出して高く構える＝はっきり「防御」の姿勢。
+  if(IMG.knightShield){
+    const hx = cx + dir*(-w*0.40 + ga*w*0.62);     // 後ろ(-0.40w) → 前(+0.22w)
+    const hy = (pl.y+pl.h*0.60) - ga*(pl.h*0.20);  // ガードで少し上げる
+    const s  = 1 + ga*0.12;                        // ガードで少し大きく
+    const sw=w*0.66*s, sh=w*0.72*s;
+    ctx.save(); ctx.translate(hx,hy); if(dir<0) ctx.scale(-1,1);
+    ctx.rotate(-ga*0.28);                          // ほんの少し立てる
+    ctx.drawImage(IMG.knightShield,-sw*0.5,-sh*0.5,sw,sh);
+    ctx.restore();
+  }
 }
 // 装備した武器（けん以外）を手元に表示。攻撃中は前へ振る/構える。
 function drawWeaponInHand(){
@@ -1085,6 +1261,20 @@ function drawHUD(){
     ctx.restore();
     infoY+=40;
   }
+  // 使いすて爆弾（在庫数。装備中は濃く、未装備はうすく）
+  if(pl && SAVE.bombs>0){
+    const yy=infoY, on=SAVE.bombOn;
+    ctx.save(); if(!on) ctx.globalAlpha=0.5;
+    // 爆弾アイコン（黒い玉＋みじかい導火線）
+    ctx.beginPath(); ctx.arc(pad+13,yy+10,11,0,7); ctx.fillStyle='#2b2b33'; ctx.fill();
+    ctx.lineWidth=3; ctx.strokeStyle='#8a6a3a'; ctx.beginPath(); ctx.moveTo(pad+18,yy+1); ctx.quadraticCurveTo(pad+24,yy-6,pad+27,yy-3); ctx.stroke();
+    ctx.fillStyle='#ff6b1a'; ctx.beginPath(); ctx.arc(pad+27,yy-3,2.5,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.strokeStyle='#4a3728'; ctx.lineWidth=4; ctx.font='800 22px sans-serif';
+    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+    ctx.strokeText('× '+SAVE.bombs, pad+34, yy+18); ctx.fillText('× '+SAVE.bombs, pad+34, yy+18);
+    ctx.restore();
+    infoY+=40;
+  }
   // キャンディ無敵の残り秒数
   if(pl && pl.invPower>0){
     const yy=infoY;
@@ -1139,10 +1329,12 @@ function showOverlay(show,kind){
     <div class="keys">かじ屋で 星をつかって なかまを ふやせるよ</div>`;
   }
   else if(kind==='over') html=`<h1>ゲームオーバー</h1><p>もう一度ちょうせん！</p>
-    <p>もっている星：<b>${SAVE.stars}</b> 個</p><button id="startBtn">▶ リトライ</button>`;
+    <p>もっている星：<b>${SAVE.stars}</b> 個</p><button id="startBtn">▶ リトライ</button>
+    <button class="ov2 js-update">🔄 さいしんに こうしん</button>`;
   else if(kind==='pause') html=`<h1>ポーズ中</h1><p>「つづける」を おしてね（P キーでもOK）</p>
     <button id="startBtn">▶ つづける</button>
-    ${scene==='stage'?'<button id="retryBtn" class="ov2">🔄 やりなおす</button><button id="toVillageBtn" class="ov2">🏘 むらへもどる</button>':''}`;
+    ${scene==='stage'?'<button id="retryBtn" class="ov2">🔄 やりなおす</button><button id="toVillageBtn" class="ov2">🏘 むらへもどる</button>':''}
+    <button class="ov2 js-update">🔄 さいしんに こうしん（${APP_VERSION}）</button>`;
   overlay.innerHTML=html;
   const b=document.getElementById('startBtn');
   b.onclick=()=>{
@@ -1157,6 +1349,21 @@ function showOverlay(show,kind){
   if(rb) rb.onclick=()=>{ retry(); };                            // ポーズからステージをやりなおす
 }
 document.getElementById('startBtn').onclick=startGame;
+
+// ---------- 更新（iPad対策）：ボタンでキャッシュを消して最新に入れ替え ----------
+const APP_VERSION='v15';
+async function forceUpdate(){
+  const b=document.getElementById('updateBtn'); if(b){ b.textContent='こうしん中…'; }
+  try{ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }catch(e){}
+  try{ if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); } }catch(e){}
+  // キャッシュを消してから、URLに時刻を付けて完全に読み直す
+  location.replace(location.pathname + '?u=' + Date.now());
+}
+(function(){
+  // どの画面の「こうしん」ボタン(.js-update)を押しても更新（あとから作られるボタンにも効く）
+  document.addEventListener('click', e=>{ if(e.target && e.target.closest && e.target.closest('.js-update')) forceUpdate(); });
+  const vl=document.getElementById('verLabel'); if(vl) vl.textContent=APP_VERSION;
+})();
 
 // ---------- かじ屋ショップ ----------
 const shopEl=document.getElementById('shop');
@@ -1217,6 +1424,15 @@ function renderShop(){
     gearRows+=`<div class="srow"><div class="sicon"><img src="assets/helmet.svg"></div>
       <div class="sinfo"><div class="sname">ヘルメット <span class="sdesc">ダメージを1回ふせぐ 使いすて（同時に1つだけ・もっている:${SAVE.helmets}こ）</span></div>${buyBtn}${eqCtrl}</div></div>`;
   }
+  { let buyBtn, eqCtrl;
+    if(SAVE.stars>=BOMB_COST) buyBtn=`<button class="sbtn buy" data-gbuy="bomb">★${BOMB_COST} で かう</button>`;
+    else buyBtn=`<span class="tag lock">★${BOMB_COST}（星がたりない）</span>`;
+    if(SAVE.bombOn) eqCtrl=`<span class="tag using">そうびちゅう</span>`;
+    else if(SAVE.bombs>0) eqCtrl=`<button class="sbtn use" data-gequip="bomb">そうびする</button>`;
+    else eqCtrl='';
+    gearRows+=`<div class="srow"><div class="sicon"><img src="assets/bomb.svg"></div>
+      <div class="sinfo"><div class="sname">ばくだん <span class="sdesc">つかうと2回分のダメージ！ 使いすて（そうびして1つだけ持ちこめる・もっている:${SAVE.bombs}こ）</span></div>${buyBtn}${eqCtrl}</div></div>`;
+  }
   shopEl.innerHTML=`<div class="sbox">
     <h2>🔨 かじ屋</h2>
     <div class="sstars">もっている星：★ <b>${SAVE.stars}</b></div>
@@ -1230,7 +1446,7 @@ function renderShop(){
   shopEl.querySelectorAll('[data-wbuy]').forEach(b=>b.onclick=()=>buyWeapon(b.dataset.wbuy));
   shopEl.querySelectorAll('[data-wuse]').forEach(b=>b.onclick=()=>{ SAVE.weapon=b.dataset.wuse; saveData(); snd('coin'); renderShop(); });
   shopEl.querySelectorAll('[data-gbuy]').forEach(b=>b.onclick=()=>buyGear(b.dataset.gbuy));
-  shopEl.querySelectorAll('[data-gequip]').forEach(b=>b.onclick=()=>equipHelmet());
+  shopEl.querySelectorAll('[data-gequip]').forEach(b=>b.onclick=()=>{ b.dataset.gequip==='bomb'?equipBomb():equipHelmet(); });
   document.getElementById('shopClose').onclick=closeShop;
 }
 function charPreview(id){
@@ -1262,7 +1478,17 @@ function buyGear(id){
     SAVE.stars-=HELMET_COST; SAVE.helmets++;
     if(!SAVE.helmetOn){ SAVE.helmetOn=true; if(pl) pl.helmetHp=HELMET_MAX; }   // まだかぶってなければ1つ装備
     saveData(); snd('coin'); renderShop();
+  } else if(id==='bomb'){
+    if(SAVE.stars<BOMB_COST) return;
+    SAVE.stars-=BOMB_COST; SAVE.bombs++;
+    if(!SAVE.bombOn) SAVE.bombOn=true;   // まだ装備してなければ1つ装備（ステージに持ちこめる）
+    saveData(); snd('coin'); updateBombBtn(); renderShop();
   }
+}
+// 予備の爆弾を1つ装備する（同時に装備できるのは1つだけ）
+function equipBomb(){
+  if(SAVE.bombOn || SAVE.bombs<=0) return;
+  SAVE.bombOn=true; saveData(); snd('coin'); updateBombBtn(); renderShop();
 }
 // 予備のヘルメットを1つ装備する（同時に装備できるのは1つだけ）
 function equipHelmet(){

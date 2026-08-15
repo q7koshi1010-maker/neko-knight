@@ -3,7 +3,7 @@
    - オンライン時は毎回サーバーから取得し、取れたものをキャッシュに保存（＝更新が確実に反映される）。
    - オフライン時（弓矢…ではなくネットが無いとき）はキャッシュから返す。
    ★ ファイルを更新して古い画面が出る時は、下の VERSION の数字を上げると全キャッシュを作り直す。 */
-const VERSION = 'v5';
+const VERSION = 'v15';
 const CACHE = 'neko-' + VERSION;
 
 // 最初に必ずキャッシュしておくもの（本体＋アイコン＋ショップが<img>で読むSVG）。
@@ -15,7 +15,7 @@ const CORE = [
   'assets/penguin_idle.svg', 'assets/panda_idle.svg', 'assets/rabbit_idle.svg', 'assets/cheetah_idle.svg',
   'assets/weapon_gun.svg', 'assets/weapon_axe.svg', 'assets/weapon_bat.svg',
   'assets/weapon_wand.svg', 'assets/weapon_hammer.svg', 'assets/weapon_bow.svg',
-  'assets/boots.svg', 'assets/helmet.svg'
+  'assets/boots.svg', 'assets/helmet.svg', 'assets/bomb.svg'
 ];
 
 self.addEventListener('install', e => {

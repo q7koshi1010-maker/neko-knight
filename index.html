@@ -39,6 +39,7 @@
   #bJump { background:rgba(60,140,80,.5); }
   #bAtk  { background:rgba(190,70,70,.5); }
   #bGuard{ background:rgba(70,110,190,.5); }
+  #bBomb { background:rgba(120,70,160,.55); }
 
   /* オーバーレイ（タイトル/クリア/GameOver） */
   #overlay { position:absolute; inset:0; display:flex; flex-direction:column;
@@ -69,6 +70,12 @@
     background:rgba(74,55,40,.42); font-size:20px; cursor:pointer; line-height:1; color:#fff;
     display:none; align-items:center; justify-content:center; }
   #pauseBtn:active { transform:scale(.92); }
+  #updateBtn { position:absolute; top:calc(12px + env(safe-area-inset-top)); left:calc(12px + env(safe-area-inset-left));
+    z-index:8; border:3px solid rgba(255,255,255,.6); background:rgba(74,55,40,.5); color:#fff; font-weight:800;
+    font-size:15px; line-height:1; padding:9px 13px; border-radius:20px; cursor:pointer; display:none; }
+  #updateBtn:active { transform:scale(.94); }
+  #verLabel { position:absolute; left:calc(10px + env(safe-area-inset-left)); bottom:calc(8px + env(safe-area-inset-bottom));
+    z-index:6; color:rgba(255,255,255,.55); font-size:12px; font-weight:700; pointer-events:none; }
 
   /* かじ屋ショップ */
   #shop { position:absolute; inset:0; z-index:7; display:flex; align-items:center;
@@ -117,17 +124,19 @@
   <canvas id="cv"></canvas>
   <div id="touch">
     <div class="pad" id="padLeft"><div class="btn" data-k="left">◀</div><div class="btn" data-k="right">▶</div></div>
-    <div class="pad" id="padRight"><div class="btn" id="bGuard" data-k="guard">🛡</div><div class="btn" id="bAtk" data-k="atk">⚔</div><div class="btn" id="bJump" data-k="jump">⤴</div></div>
+    <div class="pad" id="padRight"><div class="btn" id="bBomb" data-k="bomb" style="display:none">💣</div><div class="btn" id="bGuard" data-k="guard">🛡</div><div class="btn" id="bAtk" data-k="atk">⚔</div><div class="btn" id="bJump" data-k="jump">⤴</div></div>
   </div>
   <div id="overlay">
     <h1>ネコの騎士のぼうけん</h1>
     <p>星をあつめ、モンスターをかわして<br>死神（しにがみ）ボスをたおそう！</p>
     <button id="startBtn">▶ スタート</button>
-    <div class="keys">← → 移動 ／ Space・↑ ジャンプ ／ J 攻撃 ／ K・↓ ガード ／ P ポーズ ／ R リスタート</div>
+    <button class="ov2 js-update">🔄 さいしんに こうしん</button>
+    <div class="keys">← → 移動 ／ Space・↑ ジャンプ ／ J 攻撃 ／ K・↓ ガード ／ B ばくだん ／ P ポーズ ／ R リスタート</div>
   </div>
   <div id="loading">よみこみ中…</div>
   <button id="muteBtn" title="音のON/OFF (M)">🔊</button>
   <button id="pauseBtn" title="ポーズ (P)">⏸</button>
+  <div id="verLabel"></div>
   <div id="shop" class="hidden"></div>
   <div id="rotate"><div class="rico">📱</div><div class="rtxt">iPadを よこむきに してね</div></div>
 </div></div>
@@ -140,8 +149,8 @@
     addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
   }
 </script>
-<script src="assets.js"></script>
-<script src="audio.js"></script>
-<script src="game.js"></script>
+<script src="assets.js?v=15"></script>
+<script src="audio.js?v=15"></script>
+<script src="game.js?v=15"></script>
 </body>
 </html>
