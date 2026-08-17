@@ -47,7 +47,18 @@ function resize(){
   VH = WORLD_H; VW = cv.width/scale;
   if(!isFinite(VW) || VW<=0) VW = MIN_VW;
 }
-window.addEventListener('resize', resize);
+// 表示サイズ（CSSの実寸）と内部解像度(cv.width/height)がズレていたら作り直す。
+// iPad/スマホは回転・アドレスバー開閉・PWA起動直後などで、間違ったサイズで一度だけ
+// resize が走ると、以降そのままCSSに引き伸ばされて“横伸び”する。毎フレーム比べて直す。
+function fitCanvas(){
+  const d = Math.min(window.devicePixelRatio || 1, 2);
+  const bw = Math.max(1, Math.round((cv.clientWidth  || 960) * d));
+  const bh = Math.max(1, Math.round((cv.clientHeight || 540) * d));
+  if(bw !== cv.width || bh !== cv.height) resize();   // ズレているときだけ（＝毎フレームcanvasを消さない）
+}
+window.addEventListener('resize', fitCanvas);
+window.addEventListener('orientationchange', ()=>{ fitCanvas(); setTimeout(fitCanvas, 300); });
+if(window.ResizeObserver){ try{ new ResizeObserver(fitCanvas).observe(cv); }catch(e){} }
 
 // ---------- アセット読み込み ----------
 const IMG = {};              // key -> HTMLImageElement (loaded)
@@ -571,6 +582,7 @@ function useGate(g){
 let last=0;
 function loop(t){
   const dt=Math.min(0.033,(t-last)/1000||0); last=t;
+  fitCanvas();                       // 横伸び防止：表示サイズと内部解像度を毎フレーム合わせる
   if(state==='play'){ update(dt); }
   render();
   if(state!==_uiState){ _uiState=state; syncTouchUI(); }
@@ -1351,7 +1363,7 @@ function showOverlay(show,kind){
 document.getElementById('startBtn').onclick=startGame;
 
 // ---------- 更新（iPad対策）：ボタンでキャッシュを消して最新に入れ替え ----------
-const APP_VERSION='v15';
+const APP_VERSION='v16';
 async function forceUpdate(){
   const b=document.getElementById('updateBtn'); if(b){ b.textContent='こうしん中…'; }
   try{ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }catch(e){}
