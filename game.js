@@ -1363,7 +1363,7 @@ function showOverlay(show,kind){
 document.getElementById('startBtn').onclick=startGame;
 
 // ---------- 更新（iPad対策）：ボタンでキャッシュを消して最新に入れ替え ----------
-const APP_VERSION='v17';
+const APP_VERSION='v18';
 async function forceUpdate(){
   const b=document.getElementById('updateBtn'); if(b){ b.textContent='こうしん中…'; }
   try{ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }catch(e){}
