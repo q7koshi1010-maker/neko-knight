@@ -1087,7 +1087,9 @@ function drawWorld(){
     const refY = (e.dal==='center') ? e.y+e.h/2+bob : e.y+e.h;
     ctx.save();
     if(e.flash>0){ ctx.globalAlpha=0.6; e.flash-=0.016; }
-    drawSpriteSquare(mapKey(e.type), cx, refY, e.ds||e.h, e.dal||'bottom', e.face<0);
+    // サメだけ絵の向きが逆なので、反転を逆にする（他の敵は右向き基準＝face<0で反転）
+    const flip = (e.type==='shark') ? e.face>=0 : e.face<0;
+    drawSpriteSquare(mapKey(e.type), cx, refY, e.ds||e.h, e.dal||'bottom', flip);
     ctx.restore();
     if(e.boss&&e.active) bossBar(e);
   });
@@ -1363,7 +1365,7 @@ function showOverlay(show,kind){
 document.getElementById('startBtn').onclick=startGame;
 
 // ---------- 更新（iPad対策）：ボタンでキャッシュを消して最新に入れ替え ----------
-const APP_VERSION='v18';
+const APP_VERSION='v19';
 async function forceUpdate(){
   const b=document.getElementById('updateBtn'); if(b){ b.textContent='こうしん中…'; }
   try{ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }catch(e){}
