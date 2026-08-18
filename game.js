@@ -320,8 +320,8 @@ function buildVillage(){
     label:'ぼうけん3へ', need:'cleared2', lockMsg:'ステージ2を クリアすると あそべる！'});
   gates.push({x:3200, y:GROUND_Y-160, w:80, h:160, to:'stage', stage:4, spawnX:700,
     label:'ぼうけん4へ（上へ）', need:'cleared3', lockMsg:'ステージ3を クリアすると あそべる！'});
-  // 装飾雲（丘のふもと〜青空に浮かべる）
-  for(let i=0;i<7;i++) floaters.push({x:i*380+120, y:210+Math.random()*90, w:130+Math.random()*60});
+  // 装飾雲（丘の頂上より上＝青空の高いところに浮かべる）
+  for(let i=0;i<7;i++) floaters.push({x:i*380+120, y:30+Math.random()*70, w:130+Math.random()*60});
 }
 
 function buildStage(n){
@@ -973,10 +973,10 @@ function layer(factor){ // カメラ視差変換をセット（originYで上下�
 
 function drawParallax(){
   if(scene==='village'){
+    // 雲（丘より上・奥の空）。丘より先に描くので、頂上と重なっても丘の奥に自然に収まる。
+    layer(0.45); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
     // 地平線に立つ、なだらかな緑の丘（背景）
     drawVillageHills();
-    // 雲（青空側）
-    layer(0.45); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
   } else if(vertical){
     // 縦ステージ：雲だけを視差でうかべる（縦に流れる）
     layer(0.5); floaters.forEach(f=>{ drawSprite('decoCloud', f.x, f.y, f.w, f.w*0.5, false); });
@@ -1363,7 +1363,7 @@ function showOverlay(show,kind){
 document.getElementById('startBtn').onclick=startGame;
 
 // ---------- 更新（iPad対策）：ボタンでキャッシュを消して最新に入れ替え ----------
-const APP_VERSION='v16';
+const APP_VERSION='v17';
 async function forceUpdate(){
   const b=document.getElementById('updateBtn'); if(b){ b.textContent='こうしん中…'; }
   try{ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }catch(e){}
